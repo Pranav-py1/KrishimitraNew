@@ -1,3 +1,4 @@
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -279,10 +280,7 @@ function RegistrationForm() {
   const firestore = useFirestore();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { user: currentUser, isUserLoading } = useUser();
-
-  const userDocRef = useMemoFirebase(() => currentUser ? doc(firestore, 'users', currentUser.uid) : null, [currentUser, firestore]);
-  const { data: userData, isLoading: isUserDataLoading } = useDoc(userDocRef);
+  const { user: currentUser, isUserLoading, userData, isUserDataLoading } = useUser();
 
   const initialRole = (searchParams.get('role') as RegistrationValues['role']) || 'farmer';
 
@@ -290,16 +288,15 @@ function RegistrationForm() {
     setMounted(true);
   }, []);
 
+  // Redirect if already logged in and profile is complete
   useEffect(() => {
     if (!mounted || isUserLoading || isUserDataLoading || isLoading) return;
 
     if (currentUser && userData?.role) {
-      if (userData.role === initialRole) {
-        const normalizedRole = userData.role.trim().toLowerCase().replace('_', '-');
-        router.push(`/dashboard/${normalizedRole}`);
-      }
+      const normalizedRole = userData.role.trim().toLowerCase().replace('_', '-');
+      router.push(`/dashboard/${normalizedRole}`);
     }
-  }, [currentUser, userData, isUserLoading, isUserDataLoading, router, mounted, isLoading, initialRole]);
+  }, [currentUser, userData, isUserLoading, isUserDataLoading, router, mounted, isLoading]);
 
   const form = useForm<RegistrationValues>({
     resolver: zodResolver(registrationSchema),

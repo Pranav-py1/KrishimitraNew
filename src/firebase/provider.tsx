@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { DependencyList, createContext, useContext, ReactNode, useMemo, useState, useEffect } from 'react';
@@ -17,6 +18,7 @@ export interface FirebaseContextState {
   user: User | null;
   userData: any | null;
   isUserLoading: boolean;
+  isUserDataLoading: boolean;
   userError: Error | null;
 }
 
@@ -24,6 +26,7 @@ export interface UserHookResult {
   user: User | null;
   userData: any | null;
   isUserLoading: boolean;
+  isUserDataLoading: boolean;
   userError: Error | null;
 }
 
@@ -46,11 +49,13 @@ export const FirebaseProvider: React.FC<FirebaseProviderProps> = ({
     user: User | null;
     userData: any | null;
     isUserLoading: boolean;
+    isUserDataLoading: boolean;
     userError: Error | null;
   }>({
     user: null,
     userData: null,
     isUserLoading: true, 
+    isUserDataLoading: false,
     userError: null,
   });
 
@@ -75,9 +80,11 @@ export const FirebaseProvider: React.FC<FirebaseProviderProps> = ({
         if (!firebaseUser) {
           if (unsubscribeDoc) unsubscribeDoc();
           clearTimeout(timeoutId);
-          setAuthState({ user: null, userData: null, isUserLoading: false, userError: null });
+          setAuthState({ user: null, userData: null, isUserLoading: false, isUserDataLoading: false, userError: null });
           return;
         }
+
+        setAuthState(prev => ({ ...prev, user: firebaseUser, isUserLoading: false, isUserDataLoading: true }));
 
         unsubscribeDoc = onSnapshot(
           doc(firestore, 'users', firebaseUser.uid),
@@ -87,6 +94,7 @@ export const FirebaseProvider: React.FC<FirebaseProviderProps> = ({
               user: firebaseUser, 
               userData: docSnap.exists() ? docSnap.data() : null, 
               isUserLoading: false, 
+              isUserDataLoading: false,
               userError: null 
             });
           },
@@ -96,6 +104,7 @@ export const FirebaseProvider: React.FC<FirebaseProviderProps> = ({
               user: firebaseUser, 
               userData: null, 
               isUserLoading: false, 
+              isUserDataLoading: false,
               userError: error 
             });
           }
@@ -103,7 +112,7 @@ export const FirebaseProvider: React.FC<FirebaseProviderProps> = ({
       },
       (error) => { 
         clearTimeout(timeoutId);
-        setAuthState({ user: null, userData: null, isUserLoading: false, userError: error });
+        setAuthState({ user: null, userData: null, isUserLoading: false, isUserDataLoading: false, userError: error });
       }
     );
 
@@ -122,6 +131,7 @@ export const FirebaseProvider: React.FC<FirebaseProviderProps> = ({
     user: authState.user,
     userData: authState.userData,
     isUserLoading: authState.isUserLoading,
+    isUserDataLoading: authState.isUserDataLoading,
     userError: authState.userError,
   }), [firebaseApp, firestore, auth, authState]);
 
@@ -163,6 +173,6 @@ export function useMemoFirebase<T>(factory: () => T, deps: DependencyList): T {
 }
 
 export const useUser = (): UserHookResult => { 
-  const { user, userData, isUserLoading, userError } = useFirebase(); 
-  return { user, userData, isUserLoading, userError };
+  const { user, userData, isUserLoading, isUserDataLoading, userError } = useFirebase(); 
+  return { user, userData, isUserLoading, isUserDataLoading, userError };
 };

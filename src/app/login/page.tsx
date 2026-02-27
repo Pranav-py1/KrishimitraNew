@@ -36,7 +36,7 @@ export default function LoginPage() {
   const auth = useAuth();
   const { toast } = useToast();
   const router = useRouter();
-  const { user, userData, isUserLoading } = useUser();
+  const { user, userData, isUserLoading, isUserDataLoading } = useUser();
 
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -52,13 +52,13 @@ export default function LoginPage() {
 
   // Handle Redirection logic ONLY after loading is fully completed and userData is available
   useEffect(() => {
-    if (!mounted || isUserLoading || isSubmitting) return;
+    if (!mounted || isUserLoading || isUserDataLoading || isSubmitting) return;
 
     if (user && userData?.role) {
       const normalizedRole = userData.role.trim().toLowerCase().replace('_', '-');
       router.push(`/dashboard/${normalizedRole}`);
     }
-  }, [user, userData, router, isUserLoading, mounted, isSubmitting]);
+  }, [user, userData, router, isUserLoading, isUserDataLoading, mounted, isSubmitting]);
 
   async function onSubmit(values: z.infer<typeof loginSchema>) {
     if (!auth) {
@@ -114,7 +114,7 @@ export default function LoginPage() {
                         <FormControl>
                           <div className="relative">
                             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                            <Input placeholder="name@example.com" {...field} className="pl-11 h-12 rounded-xl bg-muted/30" />
+                            <Input placeholder="you@example.com" {...field} className="pl-11 h-12 rounded-xl bg-muted/30" />
                           </div>
                         </FormControl>
                         <FormMessage />

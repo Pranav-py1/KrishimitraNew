@@ -39,8 +39,6 @@ const translations = {
     registerTitle: 'Join the KrishiMitra Community',
     registerSub: 'Be part of a growing network of farmers, dealers, and consumers transforming the agricultural landscape.',
     registerBtn: 'Get Started',
-    alreadyRegistered: 'Already Registered?',
-    viewNextPage: 'View Next Page',
     features: [
       { title: 'Rent Machinery', description: 'Access top-tier farm equipment on-demand to optimize your labor and yield.', href: '/machines' },
       { title: 'Agri Products', description: 'Verified seeds, fertilizers, and tools from trusted local retailers.', href: '/products' },
@@ -64,8 +62,6 @@ const translations = {
     registerTitle: 'कृषिमित्र समुदायात सामील व्हा',
     registerSub: 'कृषी क्षेत्राचा कायापालट करणाऱ्या शेतकरी, विक्रेते आणि ग्राहकांच्या वाढत्या नेटवर्कचा भाग व्हा.',
     registerBtn: 'सुरुवात करा',
-    alreadyRegistered: 'आधीच नोंदणी केली आहे?',
-    viewNextPage: 'पुढील पृष्ठ पहा',
     features: [
       { title: 'यंत्रसामग्री भाड्याने', description: 'तुमचे श्रम आणि उत्पादन ऑप्टिमाइझ करण्यासाठी मागणीनुसार सर्वोत्तम उपकरणे मिळवा.', href: '/machines' },
       { title: 'कृषी उत्पादने', description: 'विश्वासू स्थानिक विक्रेत्यांकडून प्रमाणित बियाणे, खते आणि साधने.', href: '/products' },
@@ -104,20 +100,6 @@ export default function Home() {
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  const handleViewNextPage = () => {
-    if (isUserLoading) return;
-    if (!user) {
-      router.push('/login');
-      return;
-    }
-    if (userData?.role) {
-      const normalizedRole = userData.role.trim().toLowerCase().replace('_', '-');
-      router.push(`/dashboard/${normalizedRole}`);
-    } else {
-      router.push('/login');
-    }
-  };
 
   if (!mounted) {
     return (
@@ -243,24 +225,6 @@ export default function Home() {
                   </Card>
                 );
               })}
-            </div>
-
-            <div className="mt-20 flex flex-col items-center text-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500">
-               <div className="bg-card/50 backdrop-blur-md p-8 md:p-12 rounded-[3rem] border-2 border-primary/10 shadow-soft-xl max-w-xl w-full">
-                 <p className="text-muted-foreground font-bold text-lg mb-6 tracking-tight">
-                   {t.alreadyRegistered}
-                 </p>
-                 <Button 
-                   onClick={handleViewNextPage}
-                   variant="outline" 
-                   size="lg" 
-                   className="w-full sm:w-auto rounded-full border-primary border-2 text-primary hover:bg-primary hover:text-primary-foreground font-bold px-12 h-16 text-xl shadow-lg transition-all"
-                   disabled={isUserLoading}
-                 >
-                   {isUserLoading && <Loader2 className="mr-2 h-6 w-6 animate-spin" />}
-                   {t.viewNextPage} <ArrowRight className="ml-2 h-6 w-6" />
-                 </Button>
-               </div>
             </div>
           </div>
         </section>

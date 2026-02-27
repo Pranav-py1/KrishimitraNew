@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
@@ -10,7 +11,7 @@ import { RoleDashboards } from './dashboard-views';
 
 export default function DynamicDashboardPage() {
   const { role } = useParams();
-  const { user, userData, isUserLoading } = useUser();
+  const { user, userData, isUserLoading, isUserDataLoading } = useUser();
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
 
@@ -19,7 +20,7 @@ export default function DynamicDashboardPage() {
   }, []);
 
   useEffect(() => {
-    if (!mounted || isUserLoading) return;
+    if (!mounted || isUserLoading || isUserDataLoading) return;
 
     if (!user) {
       router.push('/login');
@@ -33,13 +34,14 @@ export default function DynamicDashboardPage() {
       const isBusinessGroup = ['exporter', 'supplier'].includes(normalizedUserRole);
       const isBusinessUrl = ['exporter', 'supplier'].includes(normalizedUrlRole);
 
+      // Redirect if user is on the wrong dashboard role URL
       if (normalizedUserRole !== normalizedUrlRole && !(isBusinessGroup && isBusinessUrl)) {
         router.push(`/dashboard/${normalizedUserRole}`);
       }
     }
-  }, [user, userData, isUserLoading, role, router, mounted]);
+  }, [user, userData, isUserLoading, isUserDataLoading, role, router, mounted]);
 
-  if (!mounted || isUserLoading) {
+  if (!mounted || isUserLoading || isUserDataLoading) {
     return (
       <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
         <Loader2 className="h-16 w-16 animate-spin text-primary" />

@@ -1,10 +1,111 @@
 rules_version = '2';
-
-// Force deployment at: 2025-02-18T18:30:00Z (Updated for Expert Module Demo)
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    // --- Helper Functions ---
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function getUserRole() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && getUserRole() == "admin";
+    }
+
+    function isExpert() {
+      return isAuthenticated() && getUserRole() == "expert";
+    }
+
+    function isFarmer() {
+      return isAuthenticated() && getUserRole() == "farmer";
+    }
+
+    function isRetailer() {
+      return isAuthenticated() && (getUserRole() == "retailer" || getUserRole() == "supplier");
+    }
+
+    // --- Collection Rules ---
+
+    // User profiles
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow write: if (isAuthenticated() && request.auth.uid == userId) || isAdmin();
+    }
+
+    // Expert Articles (Guidance)
+    match /expertArticles/{postId} {
+      allow read: if true; 
+      allow create: if isExpert();
+      allow update, delete: if isExpert() && (resource == null || resource.data.expertId == request.auth.uid);
+    }
+
+    // Consultations (Booking requests from farmers to experts)
+    match /consultations/{bookingId} {
+      allow create: if isFarmer();
+      allow read: if isAdmin() ||
+                   (isExpert() && resource.data.expertId == request.auth.uid) ||
+                   (isFarmer() && resource.data.farmerId == request.auth.uid);
+      allow update: if isAdmin() ||
+                     (isExpert() && resource.data.expertId == request.auth.uid);
+    }
+
+    // Machinery and Commercial Products
+    match /machines/{id} {
+      allow read: if true;
+      allow write: if isAdmin() || isRetailer();
+    }
+    
+    match /products/{id} {
+      allow read: if true;
+      allow write: if isAdmin() || isRetailer();
+    }
+
+    // Farmer Produce and Livestock
+    match /produce/{id} {
+      allow read: if true;
+      allow write: if isFarmer() || isAdmin();
+    }
+
+    match /livestockListings/{id} {
+      allow read: if true;
+      allow write: if isFarmer() || isAdmin();
+    }
+
+    // Market Sales and Machine Bookings
+    match /sales/{id} {
+      allow read: if isAuthenticated() && (resource.data.buyerId == request.auth.uid || resource.data.sellerId == request.auth.uid || isAdmin());
+      allow create: if isAuthenticated();
+    }
+
+    match /bookings/{id} {
+      allow read: if isAuthenticated() && (resource.data.farmerId == request.auth.uid || resource.data.retailerId == request.auth.uid || isAdmin());
+      allow create: if isFarmer();
+      allow update: if isAuthenticated();
+    }
+
+    // Soil Testing Services
+    match /soilTests/{id} {
+      allow create: if isFarmer();
+      allow read: if isAdmin() || (isAuthenticated() && resource.data.farmerId == request.auth.uid);
+    }
+
+    // Chat System
+    match /chatRooms/{roomId} {
+      allow read, write: if isAuthenticated() && (request.auth.uid in resource.data.participants);
+      allow create: if isAuthenticated();
+      
+      match /messages/{msgId} {
+        allow read, write: if isAuthenticated();
+      }
+    }
+
+    // --- Catch-all ---
     match /{document=**} {
-      allow read, write: if true;
+      allow read, write: if false;
     }
   }
 }

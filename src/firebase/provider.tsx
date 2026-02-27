@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { DependencyList, createContext, useContext, ReactNode, useMemo, useState, useEffect } from 'react';
@@ -80,12 +81,14 @@ export const useUser = () => {
   } : null;
 
   const userData = role ? { 
+    id: user?.uid,
     name: user?.displayName, 
     role: role,
     phone: '+91 98765 43210',
     preferredLanguage: 'English',
-    expertiseCategory: role === 'expert' ? 'Organic Farming' : undefined,
-    bio: role === 'expert' ? 'Agricultural scientist with 15+ years of experience in crop management and soil health.' : undefined,
+    expertiseCategory: role === 'expert' ? 'Organic Farming & Crop Yield' : undefined,
+    experienceYears: role === 'expert' ? 12 : undefined,
+    bio: role === 'expert' ? 'Agricultural scientist specialized in sustainable crop practices and soil nutrient management with over 12 years of field experience across Maharashtra.' : undefined,
     location: {
       village: 'Kisanpur',
       taluka: 'Agri-Taluka',

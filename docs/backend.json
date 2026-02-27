@@ -5,78 +5,42 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "User",
       "type": "object",
-      "description": "Represents a user in the KrishiMitra application with detailed profiles for farmers, business owners, and consumers.",
+      "description": "Represents a user in the KrishiMitra application with detailed profiles for farmers, business owners, and experts.",
       "properties": {
         "name": {
-          "type": "string",
-          "description": "The user's full name."
+          "type": "string"
         },
         "phone": {
-          "type": "string",
-          "description": "The user's phone number."
+          "type": "string"
         },
         "email": {
           "type": "string",
-          "description": "The user's email address.",
           "format": "email"
         },
         "role": {
           "type": "string",
-          "description": "The user's role.",
           "enum": [
             "farmer",
             "exporter",
             "consumer",
             "supplier",
-            "service_provider",
+            "expert",
             "admin"
           ]
         },
-        "registrationTimestamp": {
+        "expertiseCategory": {
           "type": "string",
-          "format": "date-time",
-          "description": "When the user registered."
-        },
-        "aadhaar": {
-          "type": "string",
-          "description": "12-digit Aadhaar number, stored securely."
-        },
-        "crops": {
-          "type": "array",
-          "items": { "type": "string" },
-          "description": "List of primary crops grown by the farmer."
-        },
-        "farmingType": {
-          "type": "string",
-          "enum": ["Organic", "Conventional", "Mixed"]
-        },
-        "landArea": {
-          "type": "number"
-        },
-        "landUnit": {
-          "type": "string",
-          "enum": ["Acres", "Hectares"]
-        },
-        "irrigationType": {
-          "type": "string",
-          "enum": ["Rain-fed", "Borewell", "Canal", "Drip Irrigation", "Sprinkler"]
+          "description": "Expert's field of specialty (e.g., Organic Farming, Soil Science)."
         },
         "experienceYears": {
           "type": "number"
         },
-        "dob": {
-          "type": "string",
-          "format": "date"
-        },
-        "gender": {
-          "type": "string",
-          "enum": ["Male", "Female", "Other", "Prefer not to say"]
-        },
-        "occupation": {
+        "bio": {
           "type": "string"
         },
-        "householdSize": {
-          "type": "number"
+        "registrationTimestamp": {
+          "type": "string",
+          "format": "date-time"
         },
         "location": {
           "type": "object",
@@ -88,81 +52,45 @@
             "pincode": { "type": "string" },
             "address": { "type": "string" }
           }
-        },
-        "bankDetails": {
-          "type": "object",
-          "properties": {
-            "accountHolder": { "type": "string" },
-            "bankName": { "type": "string" },
-            "ifsc": { "type": "string" },
-            "accountNumber": { "type": "string" }
-          }
-        },
-        "purchasePreferences": {
-          "type": "object",
-          "properties": {
-            "productCategories": { "type": "array", "items": { "type": "string" } },
-            "purchaseFrequency": { "type": "string" },
-            "purchaseMode": { "type": "string" },
-            "organicPreference": { "type": "boolean" }
-          }
-        },
-        "paymentPreferences": {
-          "type": "object",
-          "properties": {
-            "paymentMethods": { "type": "array", "items": { "type": "string" } },
-            "upiId": { "type": "string" }
-          }
-        },
-        "documents": {
-          "type": "object",
-          "properties": {
-            "landProofURL": { "type": "string" },
-            "profilePhotoURL": { "type": "string" }
-          }
-        },
-        "preferredLanguage": {
-          "type": "string",
-          "enum": ["Marathi", "Hindi", "English", "Other"]
-        },
-        "shopDetails": {
-          "description": "Details of the shop for business users.",
-          "$ref": "#/backend/entities/ShopDetails"
         }
       },
       "required": [
         "name",
-        "role",
-        "registrationTimestamp"
+        "role"
       ]
     },
-    "ShopDetails": {
+    "Consultation": {
       "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Shop Details",
+      "title": "Consultation",
       "type": "object",
-      "description": "Represents the details of a business shop.",
+      "description": "A booking request from a farmer to an expert.",
       "properties": {
-        "name": {
-          "type": "string",
-          "description": "The name of the shop."
-        },
-        "gst": {
-          "type": "string",
-          "description": "The GST number of the shop."
-        },
-        "address": {
-          "type": "string",
-          "description": "The full address of the shop."
-        },
-        "description": {
-          "type": "string",
-          "description": "A brief description of the shop."
-        }
+        "farmerId": { "type": "string" },
+        "expertId": { "type": "string" },
+        "farmerName": { "type": "string" },
+        "subject": { "type": "string" },
+        "message": { "type": "string" },
+        "preferredDate": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["pending", "approved", "completed", "rejected"] },
+        "createdAt": { "type": "string", "format": "date-time" }
       },
-      "required": [
-        "name",
-        "address"
-      ]
+      "required": ["farmerId", "expertId", "subject", "message", "preferredDate", "status"]
+    },
+    "ExpertArticle": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Expert Article",
+      "type": "object",
+      "description": "Educational content posted by an expert.",
+      "properties": {
+        "expertId": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "content": { "type": "string" },
+        "imageURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["expertId", "title", "category", "content"]
     },
     "Machine": {
       "$schema": "http://json-schema.org/draft-07/schema#",
@@ -171,32 +99,25 @@
       "description": "Represents a machine available for rent.",
       "properties": {
         "title": {
-          "type": "string",
-          "description": "The title of the machine."
+          "type": "string"
         },
         "price": {
-          "type": "number",
-          "description": "The rental price of the machine."
+          "type": "number"
         },
         "imageURL": {
-          "type": "string",
-          "description": "URL of the machine's image."
+          "type": "string"
         },
         "retailerId": {
-          "type": "string",
-          "description": "Reference to Business User who owns the machine."
+          "type": "string"
         },
         "description": {
-          "type": "string",
-          "description": "A description of the machine."
+          "type": "string"
         },
         "availability": {
-          "type": "boolean",
-          "description": "Indicates if the machine is currently available."
+          "type": "boolean"
         },
         "approved": {
-          "type": "boolean",
-          "description": "Indicates if the machine listing has been approved by an admin."
+          "type": "boolean"
         }
       },
       "required": [
@@ -206,231 +127,6 @@
         "availability",
         "approved"
       ]
-    },
-    "AgriProduct": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "AgriProduct",
-      "type": "object",
-      "description": "Represents an agricultural input product like seeds or fertilizers.",
-      "properties": {
-        "name": { "type": "string" },
-        "company": { "type": "string" },
-        "category": { "type": "string", "enum": ["pesticides", "fertilizers", "insecticides", "seeds", "tools"] },
-        "type": { "type": "string", "description": "e.g., Systemic, Contact, Organic" },
-        "cropSuitable": { "type": "string" },
-        "packSize": { "type": "string" },
-        "price": { "type": "number" },
-        "stock": { "type": "boolean" },
-        "imageUrl": { "type": "string" }
-      },
-      "required": ["name", "company", "category", "price", "stock"]
-    },
-    "SoilTest": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "SoilTest",
-      "type": "object",
-      "description": "Represents a soil test booking.",
-      "properties": {
-        "farmerId": {
-          "type": "string",
-          "description": "Reference to Farmer."
-        },
-        "preferredDate": {
-          "type": "string",
-          "description": "The farmer's preferred date for the soil test.",
-          "format": "date-time"
-        },
-        "location": {
-          "type": "string",
-          "description": "The location where the soil test should be conducted."
-        },
-        "status": {
-          "type": "string",
-          "description": "The status of the soil test booking (e.g., pending, completed)."
-        },
-        "farmerName": {
-          "type": "string",
-          "description": "The farmer's name provided during booking."
-        },
-        "farmerPhone": {
-          "type": "string",
-          "description": "The farmer's phone number provided during booking."
-        }
-      },
-      "required": [
-        "farmerId",
-        "preferredDate",
-        "location",
-        "status"
-      ]
-    },
-    "Booking": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Booking",
-      "type": "object",
-      "description": "Represents a machine booking made by a farmer.",
-      "properties": {
-        "farmerId": {
-          "type": "string",
-          "description": "Reference to Farmer."
-        },
-        "machineId": {
-          "type": "string",
-          "description": "Reference to Machine."
-        },
-        "retailerId": {
-          "type": "string",
-          "description": "Reference to Business User who owns the machine."
-        },
-        "itemName": {
-          "type": "string",
-          "description": "Name of the item being booked."
-        },
-        "type": {
-          "type": "string",
-          "description": "Type of booking ('Machine' or 'Service')."
-        },
-        "bookingDate": {
-          "type": "string",
-          "description": "The date for which the item is booked (YYYY-MM-DD format)."
-        },
-        "totalCost": {
-          "type": "number",
-          "description": "The total cost of the booking."
-        },
-        "status": {
-          "type": "string",
-          "description": "The status of the booking (e.g., pending, confirmed, cancelled)."
-        }
-      },
-      "required": [
-        "farmerId",
-        "itemName",
-        "type",
-        "bookingDate",
-        "totalCost",
-        "status"
-      ]
-    },
-    "Produce": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Produce",
-      "type": "object",
-      "description": "Represents agricultural produce listed for sale by a farmer.",
-      "properties": {
-        "title": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "price": {
-          "type": "number",
-          "description": "Price per unit"
-        },
-        "quantity": {
-          "type": "number"
-        },
-        "unit": {
-          "type": "string",
-          "description": "e.g., kg, quintal"
-        },
-        "imageURL": {
-          "type": "string"
-        },
-        "farmerId": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string",
-          "enum": [
-            "Available",
-            "Sold Out"
-          ]
-        },
-        "approved": {
-          "type": "boolean",
-          "description": "Admin approval for the listing."
-        }
-      },
-      "required": [
-        "title",
-        "price",
-        "quantity",
-        "unit",
-        "farmerId",
-        "status",
-        "approved"
-      ]
-    },
-    "Sale": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Sale",
-      "type": "object",
-      "description": "Represents a sale of a product or produce.",
-      "properties": {
-        "buyerId": {
-          "type": "string"
-        },
-        "sellerId": {
-          "type": "string"
-        },
-        "itemId": {
-          "type": "string"
-        },
-        "itemType": {
-          "type": "string",
-          "enum": [
-            "Product",
-            "Produce"
-          ]
-        },
-        "itemName": {
-          "type": "string"
-        },
-        "price": {
-          "type": "number"
-        },
-        "quantity": {
-          "type": "number"
-        },
-        "totalPrice": {
-          "type": "number"
-        },
-        "saleDate": {
-          "type": "string",
-          "format": "date-time"
-        }
-      },
-      "required": [
-        "buyerId",
-        "sellerId",
-        "itemId",
-        "itemType",
-        "itemName",
-        "price",
-        "quantity",
-        "totalPrice",
-        "saleDate"
-      ]
-    },
-    "LivestockListing": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Livestock Listing",
-      "type": "object",
-      "description": "Represents a livestock listing (dairy or poultry) for sale by a farmer.",
-      "properties": {
-        "farmerId": { "type": "string" },
-        "category": { "type": "string", "enum": ["dairy", "poultry"] },
-        "title": { "type": "string" },
-        "description": { "type": "string" },
-        "price": { "type": "number" },
-        "quantity": { "type": "number" },
-        "imageURL": { "type": "string" },
-        "createdAt": { "type": "string", "format": "date-time" },
-        "status": { "type": "string", "enum": ["active", "sold"] }
-      },
-      "required": ["farmerId", "category", "title", "price", "quantity", "createdAt", "status"]
     }
   },
   "auth": {
@@ -444,49 +140,25 @@
       "schema": {
         "$ref": "#/backend/entities/User"
       },
-      "description": "Stores user profile information, including their specific agricultural role."
+      "description": "Stores user profile information."
+    },
+    "/consultations/{id}": {
+      "schema": {
+        "$ref": "#/backend/entities/Consultation"
+      },
+      "description": "Stores consultation requests for experts."
+    },
+    "/expertArticles/{id}": {
+      "schema": {
+        "$ref": "#/backend/entities/ExpertArticle"
+      },
+      "description": "Stores guidance articles posted by experts."
     },
     "/machines/{machineId}": {
       "schema": {
         "$ref": "#/backend/entities/Machine"
       },
       "description": "Stores machines listed for rent."
-    },
-    "/agri_products/{productId}": {
-      "schema": {
-        "$ref": "#/backend/entities/AgriProduct"
-      },
-      "description": "Stores agricultural input products listed for sale."
-    },
-    "/soilTests/{soilTestId}": {
-      "schema": {
-        "$ref": "#/backend/entities/SoilTest"
-      },
-      "description": "Stores booking details for soil testing services."
-    },
-    "/bookings/{bookingId}": {
-      "schema": {
-        "$ref": "#/backend/entities/Booking"
-      },
-      "description": "Stores booking details for machine rentals."
-    },
-    "/produce/{produceId}": {
-      "schema": {
-        "$ref": "#/backend/entities/Produce"
-      },
-      "description": "Stores fresh agricultural produce listed by farmers for direct sale."
-    },
-    "/sales/{saleId}": {
-      "schema": {
-        "$ref": "#/backend/entities/Sale"
-      },
-      "description": "Stores a record of each completed sale transaction."
-    },
-    "/livestockListings/{listingId}": {
-      "schema": {
-        "$ref": "#/backend/entities/LivestockListing"
-      },
-      "description": "Stores livestock listings for sale by farmers."
     }
   }
 }

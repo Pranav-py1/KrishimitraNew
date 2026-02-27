@@ -1,5 +1,5 @@
 
-export type UserRole = 'farmer' | 'exporter' | 'consumer' | 'supplier' | 'service_provider' | 'admin';
+export type UserRole = 'farmer' | 'exporter' | 'consumer' | 'supplier' | 'expert' | 'admin';
 
 export type User = {
   id: string;
@@ -8,17 +8,9 @@ export type User = {
   email: string;
   role: UserRole;
   registrationTimestamp: string;
-  aadhaar?: string;
-  crops?: string[];
-  farmingType?: 'Organic' | 'Conventional' | 'Mixed';
-  landArea?: number;
-  landUnit?: 'Acres' | 'Hectares';
-  irrigationType?: 'Rain-fed' | 'Borewell' | 'Canal' | 'Drip Irrigation' | 'Sprinkler';
+  expertiseCategory?: string;
   experienceYears?: number;
-  dob?: string;
-  gender?: 'Male' | 'Female' | 'Other' | 'Prefer not to say';
-  occupation?: string;
-  householdSize?: number;
+  bio?: string;
   location?: {
     village?: string;
     taluka?: string;
@@ -27,33 +19,29 @@ export type User = {
     pincode?: string;
     address?: string;
   };
-  bankDetails?: {
-    accountHolder?: string;
-    bankName?: string;
-    ifsc?: string;
-    accountNumber?: string;
-  };
-  purchasePreferences?: {
-    productCategories?: string[];
-    purchaseFrequency?: string;
-    purchaseMode?: string;
-    organicPreference?: boolean;
-  };
-  paymentPreferences?: {
-    paymentMethods?: string[];
-    upiId?: string;
-  };
-  documents?: {
-    landProofURL?: string;
-    profilePhotoURL?: string;
-  };
-  preferredLanguage?: 'Marathi' | 'Hindi' | 'English' | 'Other';
-  shopDetails?: {
-    name: string;
-    gst?: string;
-    address: string;
-    description?: string;
-  };
+};
+
+export type Consultation = {
+  id: string;
+  farmerId: string;
+  expertId: string;
+  farmerName?: string;
+  subject: string;
+  message: string;
+  preferredDate: string;
+  status: 'pending' | 'approved' | 'completed' | 'rejected';
+  createdAt: string;
+};
+
+export type ExpertArticle = {
+  id: string;
+  expertId: string;
+  title: string;
+  category: string;
+  content: string;
+  imageURL?: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type Machine = {
@@ -97,7 +85,7 @@ export type Booking = {
   retailerId: string;
   itemName: string;
   type: 'Machine' | 'Service';
-  bookingDate: string; // Stored as YYYY-MM-DD
+  bookingDate: string; 
   totalCost: number;
   status: 'Confirmed' | 'Pending' | 'Completed' | 'Cancelled';
 };
@@ -105,9 +93,9 @@ export type Booking = {
 export type SoilTest = {
   id: string;
   farmerId: string;
-  preferredDate: string; // ISO String
+  preferredDate: string; 
   location: string;
-  status: string; // 'Pending', 'Completed', etc.
+  status: string; 
   farmerName: string;
   farmerPhone: string;
 }
@@ -116,9 +104,9 @@ export type Produce = {
   id: string;
   title: string;
   description: string;
-  price: number; // per unit
+  price: number; 
   quantity: number;
-  unit: string; // e.g. 'kg', 'quintal'
+  unit: string; 
   imageURL: string;
   farmerId: string;
   status: 'Available' | 'Sold Out';
@@ -135,7 +123,7 @@ export type Sale = {
   price: number;
   quantity: number;
   totalPrice: number;
-  saleDate: string; // ISO string
+  saleDate: string; 
 };
 
 export type LivestockListing = {

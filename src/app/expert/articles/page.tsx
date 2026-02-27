@@ -1,7 +1,7 @@
 'use client';
 
 import { useUser, useFirestore, useCollection, useMemoFirebase, deleteDocumentNonBlocking } from '@/firebase';
-import { query, collection, where, orderBy, doc } from 'firebase/firestore';
+import { query, collection, where, doc } from 'firebase/firestore';
 import { 
   BookOpen, 
   Plus, 
@@ -37,11 +37,17 @@ export default function ExpertArticlesPage() {
   const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState('');
 
+  // Removed orderBy to avoid index issues during demo
   const articlesQuery = useMemoFirebase(() => 
-    user ? query(collection(firestore, 'expertArticles'), where('expertId', '==', user.uid), orderBy('createdAt', 'desc')) : null,
+    user ? query(collection(firestore, 'expertArticles'), where('expertId', '==', user.uid)) : null,
     [user?.uid, firestore]
   );
-  const { data: articles, isLoading } = useCollection<Article>(articlesQuery);
+  const { data: articlesData, isLoading } = useCollection<Article>(articlesQuery);
+
+  // Manual sort by date
+  const articles = articlesData?.sort((a, b) => 
+    new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
 
   const handleDelete = (id: string) => {
     const ref = doc(firestore, 'expertArticles', id);

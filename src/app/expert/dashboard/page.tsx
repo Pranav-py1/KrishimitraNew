@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
-import { query, collection, where, orderBy } from 'firebase/firestore';
+import { query, collection, where } from 'firebase/firestore';
 import { 
   LayoutDashboard, 
   MessageSquare, 
@@ -10,7 +10,6 @@ import {
   Users, 
   Clock, 
   CheckCircle2, 
-  AlertCircle,
   FileText,
   Plus,
   ArrowRight,
@@ -41,19 +40,27 @@ type Article = {
 export default function ExpertDashboard() {
   const { user, userData, isUserLoading } = useUser();
   const firestore = useFirestore();
-  const [activeTab, setActiveTab] = useState<'overview' | 'consultations' | 'articles'>('overview');
 
+  // Removed orderBy to avoid index issues during demo
   const consultationsQuery = useMemoFirebase(() => 
-    user ? query(collection(firestore, 'consultations'), where('expertId', '==', user.uid), orderBy('createdAt', 'desc')) : null,
+    user ? query(collection(firestore, 'consultations'), where('expertId', '==', user.uid)) : null,
     [user?.uid, firestore]
   );
-  const { data: consultations, isLoading: isConsultationsLoading } = useCollection<Consultation>(consultationsQuery);
+  const { data: consultationsData, isLoading: isConsultationsLoading } = useCollection<Consultation>(consultationsQuery);
 
   const articlesQuery = useMemoFirebase(() => 
-    user ? query(collection(firestore, 'expertArticles'), where('expertId', '==', user.uid), orderBy('createdAt', 'desc')) : null,
+    user ? query(collection(firestore, 'expertArticles'), where('expertId', '==', user.uid)) : null,
     [user?.uid, firestore]
   );
-  const { data: articles, isLoading: isArticlesLoading } = useCollection<Article>(articlesQuery);
+  const { data: articlesData, isLoading: isArticlesLoading } = useCollection<Article>(articlesQuery);
+
+  // Manual sorting
+  const consultations = consultationsData?.sort((a, b) => 
+    new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
+  const articles = articlesData?.sort((a, b) => 
+    new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
 
   if (isUserLoading) {
     return (

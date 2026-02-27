@@ -1,7 +1,7 @@
 'use client';
 
 import { useUser, useFirestore, useCollection, useMemoFirebase, updateDocumentNonBlocking } from '@/firebase';
-import { query, collection, where, orderBy, doc } from 'firebase/firestore';
+import { query, collection, where, doc } from 'firebase/firestore';
 import { 
   MessageSquare, 
   Clock, 
@@ -18,6 +18,7 @@ import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { useToast } from '@/hooks/use-toast';
+import { cn } from '@/lib/utils';
 
 type Consultation = {
   id: string;
@@ -36,11 +37,17 @@ export default function ExpertConsultationsPage() {
   const firestore = useFirestore();
   const { toast } = useToast();
 
+  // Removed orderBy to avoid index issues during demo
   const consultationsQuery = useMemoFirebase(() => 
-    user ? query(collection(firestore, 'consultations'), where('expertId', '==', user.uid), orderBy('createdAt', 'desc')) : null,
+    user ? query(collection(firestore, 'consultations'), where('expertId', '==', user.uid)) : null,
     [user?.uid, firestore]
   );
-  const { data: consultations, isLoading } = useCollection<Consultation>(consultationsQuery);
+  const { data: consultationsData, isLoading } = useCollection<Consultation>(consultationsQuery);
+
+  // Manual sort by date
+  const consultations = consultationsData?.sort((a, b) => 
+    new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
 
   const handleUpdateStatus = (id: string, newStatus: Consultation['status']) => {
     const ref = doc(firestore, 'consultations', id);

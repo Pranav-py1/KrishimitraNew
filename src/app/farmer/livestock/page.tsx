@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useUser, useFirestore, useMemoFirebase, useCollection, addDocumentNonBlocking, setDocumentNonBlocking, deleteDocumentNonBlocking } from '@/firebase';
 import { doc, query, collection, where } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Beef, Bird, Plus, Trash2, CheckCircle, Clock } from 'lucide-react';
+import { Loader2, Egg, Bird, Plus, Trash2, CheckCircle, Clock, Milk } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -215,7 +215,7 @@ export default function FarmerLivestockPage() {
             <div className="flex justify-center py-20"><Loader2 className="h-12 w-12 animate-spin text-primary" /></div>
           ) : !listings || listings.length === 0 ? (
             <div className="text-center py-20 bg-muted/20 rounded-[2rem] border-4 border-dashed">
-              <Beef className="h-16 w-16 text-muted-foreground/20 mx-auto mb-4" />
+              <Egg className="h-16 w-16 text-muted-foreground/20 mx-auto mb-4" />
               <p className="text-lg font-bold text-muted-foreground">No listings found.</p>
             </div>
           ) : (
@@ -232,7 +232,7 @@ export default function FarmerLivestockPage() {
                       />
                       <div className="absolute top-2 left-2">
                         {listing.category === 'dairy' ? (
-                          <Badge className="bg-blue-500 hover:bg-blue-600"><Beef className="h-3 w-3 mr-1" /> Dairy</Badge>
+                          <Badge className="bg-blue-500 hover:bg-blue-600"><Milk className="h-3 w-3 mr-1" /> Dairy</Badge>
                         ) : (
                           <Badge className="bg-orange-500 hover:bg-orange-600"><Bird className="h-3 w-3 mr-1" /> Poultry</Badge>
                         )}

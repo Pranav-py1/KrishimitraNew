@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useUser, useFirestore, useMemoFirebase, useCollection } from '@/firebase';
-import { Loader2, PlusCircle, CheckCircle, Clock, Beef } from 'lucide-react';
+import { Loader2, PlusCircle, CheckCircle, Clock, Egg } from 'lucide-react';
 import Link from 'next/link';
 import { query, collection, where } from 'firebase/firestore';
 import { type Produce } from '@/lib/data';
@@ -107,7 +107,7 @@ export default function FarmerDashboard() {
                 </Button>
                 <Button asChild size="lg" variant="outline" className="border-primary text-primary">
                   <Link href="/farmer/livestock">
-                    <Beef className="mr-2 h-4 w-4" /> Livestock Selling
+                    <Egg className="mr-2 h-4 w-4" /> Livestock Selling
                   </Link>
                 </Button>
               </CardContent>

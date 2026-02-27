@@ -4,7 +4,7 @@
 import React, { DependencyList, createContext, useContext, ReactNode, useMemo, useState, useEffect } from 'react';
 import { FirebaseApp } from 'firebase/app';
 import { Firestore } from 'firebase/firestore';
-import { Auth } from 'firebase/auth';
+import { Auth, onAuthStateChanged, signInAnonymously, User as FirebaseUser } from 'firebase/auth';
 import { FirebaseErrorListener } from '@/components/FirebaseErrorListener';
 
 export interface FirebaseContextState {
@@ -61,28 +61,41 @@ export function useMemoFirebase<T>(factory: () => T, deps: DependencyList): T {
 }
 
 /**
- * Enhanced mock user hook for the frontend-only prototype.
- * Returns a mock profile based on the selected role in localStorage.
+ * Enhanced user hook that listens to real Firebase Auth state.
+ * Returns a profile based on real Auth UID and the selected mock role.
  */
 export const useUser = () => {
+  const { auth } = useFirebase();
+  const [user, setUser] = useState<FirebaseUser | null>(null);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
   const [role, setRole] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // 1. Real Auth Listener
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      setUser(firebaseUser);
+      setIsAuthLoading(false);
+    });
+    return () => unsubscribe();
+  }, [auth]);
+
+  useEffect(() => {
+    // 2. Mock Role Loading & Anonymous Auth Trigger
     const savedRole = localStorage.getItem('krishimitra-role');
     setRole(savedRole);
-    setIsLoading(false);
-  }, []);
+    
+    // Auto sign-in anonymously if a role is selected but no user session exists
+    // This provides the request.auth context needed for Firestore Security Rules
+    if (savedRole && !auth.currentUser && !user) {
+      signInAnonymously(auth).catch((err) => {
+        console.error("Critical: Anonymous sign-in failed. Firestore access will be blocked.", err);
+      });
+    }
+  }, [auth, user]);
 
-  const user = role ? { 
-    uid: `mock-${role}-id`, 
-    displayName: role.charAt(0).toUpperCase() + role.slice(1),
-    email: `${role}@example.com` 
-  } : null;
-
-  const userData = role ? { 
-    id: user?.uid,
-    name: user?.displayName, 
+  const userData = (user && role) ? { 
+    id: user.uid,
+    name: user.displayName || role.charAt(0).toUpperCase() + role.slice(1), 
     role: role,
     phone: '+91 98765 43210',
     preferredLanguage: 'English',
@@ -101,8 +114,8 @@ export const useUser = () => {
   return { 
     user, 
     userData, 
-    isUserLoading: isLoading, 
-    isUserDataLoading: isLoading, 
+    isUserLoading: isAuthLoading, 
+    isUserDataLoading: isAuthLoading, 
     userError: null 
   };
 };

@@ -12,7 +12,6 @@ import {
   ArrowRight, 
   Loader2, 
   Search, 
-  ShieldCheck,
   ShoppingBag,
   Package
 } from 'lucide-react';
@@ -30,12 +29,13 @@ export default function ExportersListPage() {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState('');
 
-  const exportersQuery = useMemoFirebase(() => 
-    query(collection(firestore, 'users'), where('role', '==', 'exporter')),
-    [firestore]
-  );
+  // Only run the query if user is authenticated to avoid permission errors
+  const exportersQuery = useMemoFirebase(() => {
+    if (!user) return null;
+    return query(collection(firestore, 'users'), where('role', '==', 'exporter'));
+  }, [firestore, user]);
   
-  const { data: exporters, isLoading } = useCollection<UserType>(exportersQuery);
+  const { data: exporters, isLoading: isCollectionLoading } = useCollection<UserType>(exportersQuery);
 
   useEffect(() => {
     if (!isUserLoading && !user) {
@@ -79,7 +79,7 @@ export default function ExportersListPage() {
         />
       </div>
 
-      {isLoading ? (
+      {isCollectionLoading ? (
         <div className="flex justify-center py-20"><Loader2 className="h-12 w-12 animate-spin text-primary" /></div>
       ) : !filteredExporters || filteredExporters.length === 0 ? (
         <div className="text-center py-20 bg-muted/20 rounded-[3rem] border-4 border-dashed">

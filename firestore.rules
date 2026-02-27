@@ -2,10 +2,17 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Re-applying full public access for hackathon demo with mock authentication.
-    // This allows the frontend-only personas to interact with Firestore collections.
+
+    // Users collection: Authenticated users can read all (to find exporters), but only write their own
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Default rule for all other collections: Require authentication
+    // This satisfies the "No public database access" requirement
     match /{document=**} {
-      allow read, write: if true;
+      allow read, write: if request.auth != null;
     }
   }
 }

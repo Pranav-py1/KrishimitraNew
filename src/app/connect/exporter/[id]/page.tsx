@@ -16,7 +16,8 @@ import {
   ShoppingBag, 
   History,
   CheckCircle2,
-  MessageSquare
+  MessageSquare,
+  Package
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -40,10 +41,15 @@ export default function ExporterProfilePage() {
   const { user, isUserLoading } = useUser();
   const router = useRouter();
 
-  const exporterRef = useMemoFirebase(() => exporterId ? doc(firestore, 'users', exporterId) : null, [firestore, exporterId]);
-  const { data: exporter, isLoading } = useDoc<UserType>(exporterRef);
+  // Ensure the document reference only exists if user is authenticated
+  const exporterRef = useMemoFirebase(() => {
+    if (!user || !exporterId) return null;
+    return doc(firestore, 'users', exporterId);
+  }, [firestore, exporterId, user]);
+  
+  const { data: exporter, isLoading: isDocLoading } = useDoc<UserType>(exporterRef);
 
-  if (isUserLoading || isLoading) {
+  if (isUserLoading || isDocLoading) {
     return (
       <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
         <Loader2 className="h-16 w-16 animate-spin text-primary" />

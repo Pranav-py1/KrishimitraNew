@@ -1,5 +1,5 @@
+'use client';
 
-import type { Metadata } from 'next';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
@@ -8,11 +8,6 @@ import { FirebaseClientProvider } from '@/firebase';
 import { ThemeProvider } from '@/components/theme-provider';
 import { LanguageProvider } from '@/components/language-provider';
 import { RoleProvider } from '@/components/role-context';
-
-export const metadata: Metadata = {
-  title: 'KrishiMitra',
-  description: 'Your trusted partner in agriculture.',
-};
 
 export default function RootLayout({
   children,

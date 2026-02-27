@@ -52,7 +52,6 @@ const translations = {
     roles: {
       farmer: 'Farmer',
       exporter: 'Exporter',
-      consumer: 'Consumer',
       supplier: 'Supplier',
       admin: 'Admin',
     }
@@ -70,7 +69,6 @@ const translations = {
     roles: {
       farmer: 'शेतकरी',
       exporter: 'निर्यातदार',
-      consumer: 'ग्राहक',
       supplier: 'पुरवठादार',
       admin: 'अ‍ॅडमिन',
     }

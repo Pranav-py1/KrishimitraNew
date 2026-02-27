@@ -30,27 +30,25 @@ import { useRole, type UserRole } from '@/components/role-context';
 const translations = {
   en: {
     heroTitle: 'Cultivating Trust, Powering Growth',
-    heroSub: 'An all-in-one digital marketplace connecting farmers directly with consumers, retailers, and exporters. Enable bulk order management, seamless delivery logistics, quality certification, transparent pricing, and secure farmer payment tracking — without middlemen.',
+    heroSub: 'An all-in-one digital marketplace connecting farmers directly with markets. Enable order management, seamless delivery logistics, quality certification, transparent pricing, and secure payment tracking — without middlemen.',
     selectRole: 'Choose Your Role',
     selectRoleSub: 'Select a persona to explore tailored dashboards and specialized agricultural tools.',
     continueAs: 'Continue as',
     roles: [
       { id: 'farmer', title: 'Farmer', description: 'Maximize your yield and connect directly with markets.', icon: Wheat },
       { id: 'exporter', title: 'Exporter', description: 'Purchase products in bulk and distribute to international markets.', icon: Truck },
-      { id: 'consumer', title: 'Consumer', description: 'Enjoy fresh, traceable produce straight from the source.', icon: User },
       { id: 'supplier', title: 'Supplier', description: 'Provide essential inputs like seeds and tools to farmers.', icon: Store },
     ]
   },
   mr: {
     heroTitle: 'विश्वास जोपासा, प्रगती साधा',
-    heroSub: 'शेतकऱ्यांना ग्राहक, किरकोळ विक्रेते आणि निर्यातदारांशी थेट जोडणारी सर्वसमावेशक डिजिटल बाजारपेठ. मोठ्या प्रमाणात ऑर्डर व्यवस्थापन, अखंड वितरण लॉजिस्टिक, गुणवत्ता प्रमाणपत्र, पारदर्शक किंमत आणि सुरक्षित शेतकरी पेमेंट ट्रॅकिंग सक्षम करा — मध्यस्थांशिवाय.',
+    heroSub: 'शेतकऱ्यांना थेट बाजारपेठेशी जोडणारी सर्वसमावेशक डिजिटल बाजारपेठ. ऑर्डर व्यवस्थापन, अखंड वितरण लॉजिस्टिक, गुणवत्ता प्रमाणपत्र, पारदर्शक किंमत आणि सुरक्षित पेमेंट ट्रॅकिंग सक्षम करा — मध्यस्थांशिवाय.',
     selectRole: 'तुमची भूमिका निवडा',
     selectRoleSub: 'तुमच्या गरजेनुसार डॅशबोर्ड आणि कृषी साधनांमध्ये प्रवेश करण्यासाठी एक पर्याय निवडा.',
     continueAs: 'म्हणून सुरू ठेवा',
     roles: [
       { id: 'farmer', title: 'शेतकरी', description: 'तुमचे उत्पादन वाढवा आणि थेट बाजारपेठेशी जोडा.', icon: Wheat },
       { id: 'exporter', title: 'निर्यातदार', description: 'मोठ्या प्रमाणात माल खरेदी करा आणि आंतरराष्ट्रीय बाजारात विक्री करा.', icon: Truck },
-      { id: 'consumer', title: 'ग्राहक', description: 'थेट शेतातून आलेल्या ताज्या मालाचा आनंद घ्या.', icon: User },
       { id: 'supplier', title: 'पुरवठादार', description: 'शेतकऱ्यांना बियाणे आणि अवजारे यांसारख्या निविष्ठा पुरवा.', icon: Store },
     ]
   }
@@ -112,7 +110,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
               {t.roles.map((role) => {
                 const Icon = role.icon;
                 const isSelected = currentRole === role.id;

@@ -31,13 +31,6 @@ const connectionOptions = [
     color: 'bg-orange-500/10 text-orange-600',
   },
   {
-    title: 'View Consumers',
-    description: 'Connect directly with consumers buying fresh produce.',
-    icon: ShoppingBag,
-    href: '/connect/consumer',
-    color: 'bg-green-500/10 text-green-600',
-  },
-  {
     title: 'View Experts / Guides',
     description: 'Consult experienced agricultural experts to improve your crop yield and farm productivity.',
     icon: GraduationCap,

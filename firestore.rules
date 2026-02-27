@@ -12,12 +12,6 @@ service cloud.firestore {
     }
 
     // Public Discovery Collections (Allow everyone to browse)
-    // This includes get (single doc) and list (queries/collections)
-    match /consumers/{id} {
-      allow read: if true;
-      allow write: if isAuthenticated();
-    }
-
     match /experts/{id} {
       allow read: if true;
       allow write: if isAuthenticated();

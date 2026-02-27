@@ -1,68 +1,11 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-
-    // Helper function to check if user is authenticated
-    function isAuth() {
-      return request.auth != null;
-    }
-
-    // Helper to check if the user is the owner of the document
-    function isOwner(userId) {
-      return isAuth() && request.auth.uid == userId;
-    }
-
-    // Users Collection: Public read for profiles (experts/exporters), Auth write for own profile
-    match /users/{userId} {
-      allow read: if true;
-      allow write: if isOwner(userId);
-    }
-
-    // Expert Articles: Public read, Auth write
-    match /expertArticles/{id} {
-      allow read: if true;
-      allow write: if isAuth();
-    }
-
-    // Machines & Produce Catalog: Public read, Auth write
-    match /machines/{id} {
-      allow read: if true;
-      allow write: if isAuth();
-    }
-    match /produce/{id} {
-      allow read: if true;
-      allow write: if isAuth();
-    }
-    match /livestockListings/{id} {
-      allow read: if true;
-      allow write: if isAuth();
-    }
-
-    // Consultations & Bookings: Auth required for both read and write
-    match /consultations/{id} {
-      allow read, write: if isAuth();
-    }
-    match /bookings/{id} {
-      allow read, write: if isAuth();
-    }
-    match /soilTests/{id} {
-      allow read, write: if isAuth();
-    }
-    match /sales/{id} {
-      allow read, write: if isAuth();
-    }
-
-    // Chat Rooms: Auth required
-    match /chatRooms/{roomId} {
-      allow read, write: if isAuth();
-      match /messages/{messageId} {
-        allow read, write: if isAuth();
-      }
-    }
-
-    // Global Fallback: Require authentication for anything else
+    // Global rule: Allow read and write only for authenticated users.
+    // This is a structural fix for the persona-based prototype to ensure
+    // that no unauthenticated requests are ever made or accepted.
     match /{document=**} {
-      allow read, write: if isAuth();
+      allow read, write: if request.auth != null;
     }
   }
 }

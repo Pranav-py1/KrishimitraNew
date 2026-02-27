@@ -65,7 +65,6 @@ export function useMemoFirebase<T>(factory: () => T, deps: DependencyList): T {
  */
 export const useUser = () => {
   const { auth } = useFirebase();
-  // Set initial user to null to prevent hydration mismatch between server and client
   const [user, setUser] = useState<FirebaseUser | null>(null);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
   const [isRoleLoading, setIsRoleLoading] = useState(true);
@@ -84,13 +83,17 @@ export const useUser = () => {
     setRole(savedRole);
     setIsRoleLoading(false);
     
-    // Auto sign-in anonymously if a role is selected but no user session exists
+    // Auto sign-in anonymously if a role is selected but no user session exists.
+    // This ensures request.auth is populated before any Firestore hook runs.
     if (savedRole && !auth.currentUser && !isAuthLoading) {
       signInAnonymously(auth).catch((err) => {
         console.error("Critical: Anonymous sign-in failed. Firestore access will be blocked.", err);
       });
     }
   }, [auth, isAuthLoading]);
+
+  // Combined loading state to ensure components wait for both role and session.
+  const isUserLoading = isAuthLoading || isRoleLoading;
 
   const userData = (user && role) ? { 
     id: user.uid,
@@ -113,8 +116,8 @@ export const useUser = () => {
   return { 
     user, 
     userData, 
-    isUserLoading: isAuthLoading || isRoleLoading, 
-    isUserDataLoading: isAuthLoading || isRoleLoading, 
+    isUserLoading, 
+    isUserDataLoading: isUserLoading, 
     userError: null 
   };
 };

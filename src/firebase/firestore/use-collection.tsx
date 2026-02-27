@@ -41,7 +41,7 @@ export interface InternalQuery extends Query<DocumentData> {
 
 /**
  * React hook to subscribe to a Firestore collection or query in real-time.
- * Handles nullable references/queries and waits for authentication.
+ * Handles nullable references/queries and strictly waits for authentication.
  * 
  * @template T Optional type for document data. Defaults to any.
  * @param {CollectionReference<DocumentData> | Query<DocumentData> | null | undefined} targetRefOrQuery -
@@ -65,10 +65,11 @@ export function useCollection<T = any>(
   }, []);
 
   useEffect(() => {
-    // ENFORCE: No queries until auth is ready and user exists
-    if (!targetRefOrQuery || isUserLoading || !user) {
+    // STRUCTURAL FIX: Block execution if auth is loading or user is null.
+    // This prevents "Missing or insufficient permissions" errors caused by auth: null.
+    if (isUserLoading || !user || !targetRefOrQuery) {
       setData(null);
-      setIsLoading(false);
+      setIsLoading(isUserLoading); // Keep loading true if auth is still pending
       setError(null);
       return;
     }
@@ -87,7 +88,7 @@ export function useCollection<T = any>(
         setError(null);
         setIsLoading(false);
       },
-      (error: FirestoreError) => {
+      async (error: FirestoreError) => {
         const path: string =
           targetRefOrQuery.type === 'collection'
             ? (targetRefOrQuery as CollectionReference).path

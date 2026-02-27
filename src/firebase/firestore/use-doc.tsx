@@ -27,7 +27,7 @@ export interface UseDocResult<T> {
 
 /**
  * React hook to subscribe to a single Firestore document in real-time.
- * Handles nullable references and waits for authentication.
+ * Handles nullable references and strictly waits for authentication.
  * 
  * @template T Optional type for document data. Defaults to any.
  * @param {DocumentReference<DocumentData> | null | undefined} docRef -
@@ -45,10 +45,11 @@ export function useDoc<T = any>(
   const [error, setError] = useState<FirestoreError | Error | null>(null);
 
   useEffect(() => {
-    // ENFORCE: No queries until auth is ready and user exists
-    if (!docRef || isUserLoading || !user) {
+    // STRUCTURAL FIX: Block execution if auth is loading or user is null.
+    // This prevents "Missing or insufficient permissions" errors caused by auth: null.
+    if (isUserLoading || !user || !docRef) {
       setData(null);
-      setIsLoading(false);
+      setIsLoading(isUserLoading); // Keep loading true if auth is still pending
       setError(null);
       return;
     }
@@ -67,7 +68,7 @@ export function useDoc<T = any>(
         setError(null);
         setIsLoading(false);
       },
-      (error: FirestoreError) => {
+      async (error: FirestoreError) => {
         const contextualError = new FirestorePermissionError({
           operation: 'get',
           path: docRef.path,

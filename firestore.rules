@@ -4,56 +4,66 @@ service cloud.firestore {
 
     // --- Helper Functions ---
 
-    function isAuthenticated() {
+    function isAuth() {
       return request.auth != null;
     }
 
-    function getUserRole() {
+    function getRole() {
+      // Note: This requires real Firebase Auth and a user document in the 'users' collection
       return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
     }
 
-    function isAdmin() {
-      return isAuthenticated() && getUserRole() == "admin";
-    }
-
     function isExpert() {
-      return isAuthenticated() && getUserRole() == "expert";
+      return isAuth() && getRole() == "expert";
     }
 
     function isFarmer() {
-      return isAuthenticated() && getUserRole() == "farmer";
+      return isAuth() && getRole() == "farmer";
+    }
+
+    function isAdmin() {
+      return isAuth() && getRole() == "admin";
     }
 
     function isRetailer() {
-      return isAuthenticated() && (getUserRole() == "retailer" || getUserRole() == "supplier");
+      return isAuth() && (getRole() == "retailer" || getRole() == "supplier");
     }
 
     // --- Collection Rules ---
 
     // User profiles
     match /users/{userId} {
-      allow read: if isAuthenticated();
-      allow write: if (isAuthenticated() && request.auth.uid == userId) || isAdmin();
+      allow read: if isAuth();
+      allow write: if (isAuth() && request.auth.uid == userId) || isAdmin();
     }
 
     // Expert Articles (Guidance)
-    match /expertArticles/{postId} {
-      allow read: if true; 
+    match /expertArticles/{docId} {
+      allow list: if true;   // Fixes listing error for all users
+      allow get: if true;
       allow create: if isExpert();
       allow update, delete: if isExpert() && (resource == null || resource.data.expertId == request.auth.uid);
     }
 
-    // Consultations (Booking requests from farmers to experts)
-    match /consultations/{bookingId} {
-      allow create: if isFarmer();
-      allow read: if isAdmin() ||
-                   (isExpert() && resource.data.expertId == request.auth.uid) ||
-                   (isFarmer() && resource.data.farmerId == request.auth.uid);
-      allow update: if isAdmin() ||
-                     (isExpert() && resource.data.expertId == request.auth.uid);
+    // Expert Posts (Generic posts)
+    match /expertPosts/{docId} {
+      allow list: if true;
+      allow get: if true;
+      allow create: if isExpert();
+      allow update, delete: if isExpert() && (resource == null || resource.data.expertId == request.auth.uid);
     }
 
-    // Machinery and Commercial Products
+    // Consultations (Mapping of expertBookings from your request)
+    match /consultations/{docId} {
+      allow create: if isFarmer();
+      allow list, get: if isAdmin() ||
+        (isAuth() && resource.data.expertId == request.auth.uid) ||
+        (isAuth() && resource.data.farmerId == request.auth.uid);
+      allow update: if isAdmin() ||
+        (isAuth() && resource.data.expertId == request.auth.uid);
+    }
+
+    // Machinery and Products
     match /machines/{id} {
       allow read: if true;
       allow write: if isAdmin() || isRetailer();
@@ -77,30 +87,20 @@ service cloud.firestore {
 
     // Market Sales and Machine Bookings
     match /sales/{id} {
-      allow read: if isAuthenticated() && (resource.data.buyerId == request.auth.uid || resource.data.sellerId == request.auth.uid || isAdmin());
-      allow create: if isAuthenticated();
+      allow read: if isAuth() && (resource.data.buyerId == request.auth.uid || resource.data.sellerId == request.auth.uid || isAdmin());
+      allow create: if isAuth();
     }
 
     match /bookings/{id} {
-      allow read: if isAuthenticated() && (resource.data.farmerId == request.auth.uid || resource.data.retailerId == request.auth.uid || isAdmin());
+      allow read: if isAuth() && (resource.data.farmerId == request.auth.uid || resource.data.retailerId == request.auth.uid || isAdmin());
       allow create: if isFarmer();
-      allow update: if isAuthenticated();
+      allow update: if isAuth();
     }
 
     // Soil Testing Services
     match /soilTests/{id} {
       allow create: if isFarmer();
-      allow read: if isAdmin() || (isAuthenticated() && resource.data.farmerId == request.auth.uid);
-    }
-
-    // Chat System
-    match /chatRooms/{roomId} {
-      allow read, write: if isAuthenticated() && (request.auth.uid in resource.data.participants);
-      allow create: if isAuthenticated();
-      
-      match /messages/{msgId} {
-        allow read, write: if isAuthenticated();
-      }
+      allow read: if isAdmin() || (isAuth() && resource.data.farmerId == request.auth.uid);
     }
 
     // --- Catch-all ---

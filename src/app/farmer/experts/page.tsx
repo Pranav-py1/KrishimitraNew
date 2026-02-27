@@ -1,7 +1,6 @@
-
 'use client';
 
-import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
+import { useFirestore, useCollection, useMemoFirebase, useUser } from '@/firebase';
 import { query, collection, where } from 'firebase/firestore';
 import { 
   User, 
@@ -23,13 +22,15 @@ import { useState } from 'react';
 import type { User as UserType } from '@/lib/data';
 
 export default function ExpertsListPage() {
+  const { user } = useUser();
   const firestore = useFirestore();
   const [searchTerm, setSearchTerm] = useState('');
 
-  const expertsQuery = useMemoFirebase(() => 
-    query(collection(firestore, 'users'), where('role', '==', 'expert')),
-    [firestore]
-  );
+  const expertsQuery = useMemoFirebase(() => {
+    if (!user) return null;
+    return query(collection(firestore, 'users'), where('role', '==', 'expert'));
+  }, [firestore, user]);
+  
   const { data: experts, isLoading } = useCollection<UserType>(expertsQuery);
 
   const filteredExperts = experts?.filter(e => 

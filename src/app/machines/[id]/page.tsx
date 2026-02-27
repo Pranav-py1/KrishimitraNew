@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
@@ -27,8 +26,8 @@ export default function MachineDetailPage() {
   const machineId = Array.isArray(id) ? id[0] : id;
 
   const machineDocRef = useMemoFirebase(
-    () => (machineId ? doc(firestore, 'machines', machineId) : null),
-    [firestore, machineId]
+    () => (user && machineId ? doc(firestore, 'machines', machineId) : null),
+    [firestore, machineId, user]
   );
 
   const { data: machine, isLoading, error } = useDoc<Machine>(machineDocRef);

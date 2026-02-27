@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
@@ -43,13 +42,18 @@ export default function ExpertProfilePage() {
     preferredDate: ''
   });
 
-  const expertRef = useMemoFirebase(() => expertId ? doc(firestore, 'users', expertId) : null, [firestore, expertId]);
+  const expertRef = useMemoFirebase(() => {
+    if (!user || !expertId) return null;
+    return doc(firestore, 'users', expertId);
+  }, [firestore, expertId, user]);
+  
   const { data: expert, isLoading: isExpertLoading } = useDoc<UserType>(expertRef);
 
-  const articlesQuery = useMemoFirebase(() => 
-    expertId ? query(collection(firestore, 'expertArticles'), where('expertId', '==', expertId), orderBy('createdAt', 'desc')) : null,
-    [firestore, expertId]
-  );
+  const articlesQuery = useMemoFirebase(() => {
+    if (!user || !expertId) return null;
+    return query(collection(firestore, 'expertArticles'), where('expertId', '==', expertId));
+  }, [firestore, expertId, user]);
+  
   const { data: articles, isLoading: isArticlesLoading } = useCollection<ExpertArticle>(articlesQuery);
 
   const handleBookConsultation = async (e: React.FormEvent) => {

@@ -104,12 +104,20 @@ function ListingsGrid({ items, type, onUpdate }: { items: any[] | null; type: 'm
 
 export default function AdminDashboardPage() {
   const firestore = useFirestore();
-  const { isUserLoading } = useUser();
+  const { user, isUserLoading } = useUser();
 
-  const unapprovedMachinesQuery = useMemoFirebase(() => query(collection(firestore, 'machines'), where('approved', '==', false)), [firestore]);
+  const unapprovedMachinesQuery = useMemoFirebase(() => {
+    if (!user) return null;
+    return query(collection(firestore, 'machines'), where('approved', '==', false));
+  }, [firestore, user]);
+  
   const { data: unapprovedMachines, isLoading: isLoadingMachines, error: machinesError, forceRefetch: refetchMachines } = useCollection<Machine>(unapprovedMachinesQuery);
   
-  const unapprovedProductsQuery = useMemoFirebase(() => query(collection(firestore, 'products'), where('approved', '==', false)), [firestore]);
+  const unapprovedProductsQuery = useMemoFirebase(() => {
+    if (!user) return null;
+    return query(collection(firestore, 'products'), where('approved', '==', false));
+  }, [firestore, user]);
+  
   const { data: unapprovedProducts, isLoading: isLoadingProducts, error: productsError, forceRefetch: refetchProducts } = useCollection<Product>(unapprovedProductsQuery);
 
   if (isUserLoading) {

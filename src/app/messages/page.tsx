@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
@@ -56,8 +55,8 @@ export default function MessagesPage() {
 
   // Query for messages in the selected room
   const messagesQuery = useMemoFirebase(
-    () => selectedRoomId ? query(collection(firestore, 'chatRooms', selectedRoomId, 'messages'), orderBy('timestamp', 'asc'), limit(50)) : null,
-    [firestore, selectedRoomId]
+    () => (user && selectedRoomId) ? query(collection(firestore, 'chatRooms', selectedRoomId, 'messages'), orderBy('timestamp', 'asc'), limit(50)) : null,
+    [firestore, selectedRoomId, user]
   );
 
   const { data: messages, isLoading: isLoadingMessages } = useCollection<ChatMessage>(messagesQuery);

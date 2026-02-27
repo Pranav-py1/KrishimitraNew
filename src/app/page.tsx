@@ -39,7 +39,6 @@ const translations = {
       { id: 'exporter', title: 'Exporter', description: 'Purchase products in bulk and distribute to international markets.', icon: Truck },
       { id: 'consumer', title: 'Consumer', description: 'Enjoy fresh, traceable produce straight from the source.', icon: User },
       { id: 'supplier', title: 'Supplier', description: 'Provide essential inputs like seeds and tools to farmers.', icon: Store },
-      { id: 'expert', title: 'Expert', description: 'Offer specialized services like soil testing and advice.', icon: Wrench },
     ]
   },
   mr: {
@@ -53,7 +52,6 @@ const translations = {
       { id: 'exporter', title: 'निर्यातदार', description: 'मोठ्या प्रमाणात माल खरेदी करा आणि आंतरराष्ट्रीय बाजारात विक्री करा.', icon: Truck },
       { id: 'consumer', title: 'ग्राहक', description: 'थेट शेतातून आलेल्या ताज्या मालाचा आनंद घ्या.', icon: User },
       { id: 'supplier', title: 'पुरवठादार', description: 'शेतकऱ्यांना बियाणे आणि अवजारे यांसारख्या निविष्ठा पुरवा.', icon: Store },
-      { id: 'expert', title: 'तज्ज्ञ', description: 'माती परीक्षण आणि सल्ल्यासारख्या विशेष सेवा द्या.', icon: Wrench },
     ]
   }
 };
@@ -114,7 +112,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
               {t.roles.map((role) => {
                 const Icon = role.icon;
                 const isSelected = currentRole === role.id;
@@ -146,7 +144,7 @@ export default function Home() {
                     <div className="w-full pb-10 px-8">
                       <Button className={cn(
                         "w-full h-12 rounded-2xl shadow-lg transition-all font-bold",
-                        isSelected ? "bg-accent text-accent-foreground" : "group-hover:scale-105"
+                        isSelected ? t.continueAs : t.selectRole
                       )}>
                         {isSelected ? t.continueAs : t.selectRole} <ArrowRight className="ml-2 h-4 w-4" />
                       </Button>

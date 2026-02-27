@@ -102,9 +102,6 @@ export const useUser = () => {
     role: role,
     phone: '+91 98765 43210',
     preferredLanguage: 'English',
-    expertiseCategory: role === 'expert' ? 'Organic Farming & Crop Yield' : undefined,
-    experienceYears: role === 'expert' ? 12 : undefined,
-    bio: role === 'expert' ? 'Agricultural scientist specialized in sustainable crop practices and soil nutrient management with over 12 years of field experience across Maharashtra.' : undefined,
     location: {
       village: 'Kisanpur',
       taluka: 'Agri-Taluka',

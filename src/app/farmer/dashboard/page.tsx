@@ -8,7 +8,6 @@ import {
   Truck, 
   Store, 
   ShoppingBag, 
-  Lightbulb, 
   MessageCircle,
   ArrowRight
 } from 'lucide-react';
@@ -36,13 +35,6 @@ const connectionOptions = [
     icon: ShoppingBag,
     href: '/connect/consumer',
     color: 'bg-green-500/10 text-green-600',
-  },
-  {
-    title: 'View Guides / Experts',
-    description: 'Get advice from agricultural experts and service providers.',
-    icon: Lightbulb,
-    href: '/farmer/experts',
-    color: 'bg-purple-500/10 text-purple-600',
   },
   {
     title: 'Chat with Other Farmers',

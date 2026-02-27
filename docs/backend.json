@@ -1,11 +1,10 @@
-
 {
   "entities": {
     "User": {
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "User",
       "type": "object",
-      "description": "Represents a user in the KrishiMitra application with detailed profiles for farmers, business owners, and experts.",
+      "description": "Represents a user in the KrishiMitra application with detailed profiles for farmers, business owners, and consumers.",
       "properties": {
         "name": {
           "type": "string"
@@ -24,19 +23,8 @@
             "exporter",
             "consumer",
             "supplier",
-            "expert",
             "admin"
           ]
-        },
-        "expertiseCategory": {
-          "type": "string",
-          "description": "Expert's field of specialty (e.g., Organic Farming, Soil Science)."
-        },
-        "experienceYears": {
-          "type": "number"
-        },
-        "bio": {
-          "type": "string"
         },
         "registrationTimestamp": {
           "type": "string",

@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -55,7 +54,7 @@ const translations = {
       exporter: 'Exporter',
       consumer: 'Consumer',
       supplier: 'Supplier',
-      service_provider: 'Expert',
+      expert: 'Expert',
       admin: 'Admin',
     }
   },
@@ -74,7 +73,7 @@ const translations = {
       exporter: 'निर्यातदार',
       consumer: 'ग्राहक',
       supplier: 'पुरवठादार',
-      service_provider: 'तज्ज्ञ',
+      expert: 'तज्ज्ञ',
       admin: 'अ‍ॅडमिन',
     }
   }

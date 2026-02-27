@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -31,7 +30,7 @@ import { useRole, type UserRole } from '@/components/role-context';
 const translations = {
   en: {
     heroTitle: 'Cultivating Trust, Powering Growth',
-    heroSub: 'Your all-in-one digital platform for modern farming. Rent advanced machinery, source quality agri-inputs, and trade produce directly with your community.',
+    heroSub: 'An all-in-one digital marketplace connecting farmers directly with consumers, retailers, and exporters. Enable bulk order management, seamless delivery logistics, quality certification, transparent pricing, and secure farmer payment tracking — without middlemen.',
     selectRole: 'Choose Your Role',
     selectRoleSub: 'Select a persona to explore tailored dashboards and specialized agricultural tools.',
     continueAs: 'Continue as',
@@ -40,12 +39,12 @@ const translations = {
       { id: 'exporter', title: 'Exporter', description: 'Purchase products in bulk and distribute to international markets.', icon: Truck },
       { id: 'consumer', title: 'Consumer', description: 'Enjoy fresh, traceable produce straight from the source.', icon: User },
       { id: 'supplier', title: 'Supplier', description: 'Provide essential inputs like seeds and tools to farmers.', icon: Store },
-      { id: 'service_provider', title: 'Expert', description: 'Offer specialized services like soil testing and advice.', icon: Wrench },
+      { id: 'expert', title: 'Expert', description: 'Offer specialized services like soil testing and advice.', icon: Wrench },
     ]
   },
   mr: {
     heroTitle: 'विश्वास जोपासा, प्रगती साधा',
-    heroSub: 'आधुनिक शेतीसाठी तुमचे सर्वसमावेशक डिजिटल व्यासपीठ. प्रगत यंत्रसामग्री भाड्याने घ्या, दर्जेदार निविष्ठा मिळवा आणि थेट समुदायाशी व्यापार करा.',
+    heroSub: 'शेतकऱ्यांना ग्राहक, किरकोळ विक्रेते आणि निर्यातदारांशी थेट जोडणारी सर्वसमावेशक डिजिटल बाजारपेठ. मोठ्या प्रमाणात ऑर्डर व्यवस्थापन, अखंड वितरण लॉजिस्टिक, गुणवत्ता प्रमाणपत्र, पारदर्शक किंमत आणि सुरक्षित शेतकरी पेमेंट ट्रॅकिंग सक्षम करा — मध्यस्थांशिवाय.',
     selectRole: 'तुमची भूमिका निवडा',
     selectRoleSub: 'तुमच्या गरजेनुसार डॅशबोर्ड आणि कृषी साधनांमध्ये प्रवेश करण्यासाठी एक पर्याय निवडा.',
     continueAs: 'म्हणून सुरू ठेवा',
@@ -54,7 +53,7 @@ const translations = {
       { id: 'exporter', title: 'निर्यातदार', description: 'मोठ्या प्रमाणात माल खरेदी करा आणि आंतरराष्ट्रीय बाजारात विक्री करा.', icon: Truck },
       { id: 'consumer', title: 'ग्राहक', description: 'थेट शेतातून आलेल्या ताज्या मालाचा आनंद घ्या.', icon: User },
       { id: 'supplier', title: 'पुरवठादार', description: 'शेतकऱ्यांना बियाणे आणि अवजारे यांसारख्या निविष्ठा पुरवा.', icon: Store },
-      { id: 'service_provider', title: 'तज्ज्ञ', description: 'माती परीक्षण आणि सल्ल्यासारख्या विशेष सेवा द्या.', icon: Wrench },
+      { id: 'expert', title: 'तज्ज्ञ', description: 'माती परीक्षण आणि सल्ल्यासारख्या विशेष सेवा द्या.', icon: Wrench },
     ]
   }
 };

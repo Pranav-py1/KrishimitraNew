@@ -43,6 +43,10 @@ export const FirebaseProvider: React.FC<FirebaseProviderProps> = ({
   );
 };
 
+export const useAuth = () => useFirebase().auth;
+export const useFirestore = () => useFirebase().firestore;
+export const useFirebaseApp = () => useFirebase().firebaseApp;
+
 export const useFirebase = (): FirebaseContextState => {
   const context = useContext(FirebaseContext);
   if (!context) {
@@ -50,10 +54,6 @@ export const useFirebase = (): FirebaseContextState => {
   }
   return context;
 };
-
-export const useAuth = () => useFirebase().auth;
-export const useFirestore = () => useFirebase().firestore;
-export const useFirebaseApp = () => useFirebase().firebaseApp;
 
 export function useMemoFirebase<T>(factory: () => T, deps: DependencyList): T {
   return useMemo(factory, deps);
@@ -84,6 +84,8 @@ export const useUser = () => {
     role: role,
     phone: '+91 98765 43210',
     preferredLanguage: 'English',
+    expertiseCategory: role === 'expert' ? 'Organic Farming' : undefined,
+    bio: role === 'expert' ? 'Agricultural scientist with 15+ years of experience in crop management and soil health.' : undefined,
     location: {
       village: 'Kisanpur',
       taluka: 'Agri-Taluka',

@@ -1,11 +1,11 @@
-
 rules_version = '2';
+
 service cloud.firestore {
   match /databases/{database}/documents {
-    // During frontend-only prototyping with mock roles, we allow public access.
-    // In a production app, these would be secured based on verified role-based custom claims.
+
     match /{document=**} {
       allow read, write: if true;
     }
+
   }
 }

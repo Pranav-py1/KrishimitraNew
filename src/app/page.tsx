@@ -87,11 +87,11 @@ export default function Home() {
               alt="Farmer in a field"
               src={heroImage.imageUrl}
               fill
-              className="object-cover animate-in fade-in duration-1000"
+              className="object-cover animate-in fade-in duration-1000 brightness-[0.85] dark:brightness-[0.75]"
               priority
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-background" />
+          <div className="absolute inset-0 bg-black/40" />
           <div className="relative container mx-auto h-full px-4 md:px-6 flex flex-col items-center justify-center text-center text-white">
             <div className="max-w-3xl animate-in fade-in slide-in-from-bottom-8 duration-700">
               <h1 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl font-headline mb-6">

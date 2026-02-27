@@ -9,7 +9,8 @@ import {
   Store, 
   ShoppingBag, 
   MessageCircle,
-  ArrowRight
+  ArrowRight,
+  GraduationCap
 } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -35,6 +36,13 @@ const connectionOptions = [
     icon: ShoppingBag,
     href: '/connect/consumer',
     color: 'bg-green-500/10 text-green-600',
+  },
+  {
+    title: 'View Experts / Guides',
+    description: 'Consult experienced agricultural experts to improve your crop yield and farm productivity.',
+    icon: GraduationCap,
+    href: '/connect/guide',
+    color: 'bg-teal-500/10 text-teal-600',
   },
   {
     title: 'Chat with Other Farmers',

@@ -15,6 +15,7 @@ import {
   Loader2,
   CheckCircle2,
   ShoppingBag,
+  GraduationCap,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -40,6 +41,7 @@ const translations = {
       { id: 'exporter', title: 'Exporter', description: 'Purchase products in bulk and distribute to international markets.', icon: Truck },
       { id: 'supplier', title: 'Supplier', description: 'Provide essential inputs like seeds and tools to farmers.', icon: Store },
       { id: 'consumer', title: 'Consumer', description: 'Purchase fresh agricultural produce directly from farmers for daily or bulk needs.', icon: ShoppingBag },
+      { id: 'expert', title: 'Expert', description: 'Provide professional agricultural guidance to farmers through online or on-field consultation.', icon: GraduationCap },
     ]
   },
   mr: {
@@ -53,6 +55,7 @@ const translations = {
       { id: 'exporter', title: 'निर्यातदार', description: 'मोठ्या प्रमाणात माल खरेदी करा आणि आंतरराष्ट्रीय बाजारात विक्री करा.', icon: Truck },
       { id: 'supplier', title: 'पुरवठादार', description: 'शेतकऱ्यांना बियाणे आणि अवजारे यांसारख्या निविष्ठा पुरवा.', icon: Store },
       { id: 'consumer', title: 'ग्राहक', description: 'दैनंदिन किंवा मोठ्या गरजांसाठी थेट शेतकऱ्यांकडून ताजी कृषी उत्पादने खरेदी करा.', icon: ShoppingBag },
+      { id: 'expert', title: 'तज्ज्ञ', description: 'ऑनलाइन किंवा ऑन-फील्ड सल्लामसलतद्वारे शेतकऱ्यांना व्यावसायिक कृषी मार्गदर्शन प्रदान करा.', icon: GraduationCap },
     ]
   }
 };
@@ -113,7 +116,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5 max-w-7xl mx-auto">
               {t.roles.map((role) => {
                 const Icon = role.icon;
                 const isSelected = currentRole === role.id;

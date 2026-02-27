@@ -1,4 +1,4 @@
-export type UserRole = 'farmer' | 'exporter' | 'supplier' | 'admin' | 'consumer';
+export type UserRole = 'farmer' | 'exporter' | 'supplier' | 'admin' | 'consumer' | 'expert' | 'expert-online' | 'expert-offline';
 
 export type User = {
   id: string;

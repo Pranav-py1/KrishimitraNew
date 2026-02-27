@@ -55,6 +55,9 @@ const translations = {
       supplier: 'Supplier',
       admin: 'Admin',
       consumer: 'Consumer',
+      expert: 'Expert',
+      'expert-online': 'Online Expert',
+      'expert-offline': 'Offline Expert',
     }
   },
   mr: {
@@ -73,6 +76,9 @@ const translations = {
       supplier: 'पुरवठादार',
       admin: 'अ‍ॅडमिन',
       consumer: 'ग्राहक',
+      expert: 'तज्ज्ञ',
+      'expert-online': 'ऑनलाइन तज्ज्ञ',
+      'expert-offline': 'ऑफलाइन तज्ज्ञ',
     }
   }
 };

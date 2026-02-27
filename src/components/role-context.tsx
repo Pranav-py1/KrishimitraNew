@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 
-export type UserRole = 'farmer' | 'exporter' | 'supplier' | 'admin' | 'consumer';
+export type UserRole = 'farmer' | 'exporter' | 'supplier' | 'admin' | 'consumer' | 'expert' | 'expert-online' | 'expert-offline';
 
 interface RoleContextType {
   role: UserRole | null;
@@ -22,7 +22,7 @@ export function RoleProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const savedRole = localStorage.getItem('krishimitra-role') as UserRole;
-    if (savedRole && ['farmer', 'exporter', 'supplier', 'admin', 'consumer'].includes(savedRole)) {
+    if (savedRole && ['farmer', 'exporter', 'supplier', 'admin', 'consumer', 'expert', 'expert-online', 'expert-offline'].includes(savedRole)) {
       setRoleState(savedRole);
     } else {
       localStorage.removeItem('krishimitra-role');
@@ -34,6 +34,11 @@ export function RoleProvider({ children }: { children: ReactNode }) {
     setRoleState(newRole);
     localStorage.setItem('krishimitra-role', newRole);
     
+    if (newRole === 'expert') {
+      router.push('/role/expert-type');
+      return;
+    }
+
     if (newRole === 'supplier') {
       router.push('/supplier-dashboard');
     } else {

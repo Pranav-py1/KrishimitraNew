@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -40,7 +39,10 @@ type AgriProduct = {
   packSize?: string;
 };
 
-// Organized Product Data
+// Helper to find image URL by ID
+const getImg = (id: string) => PlaceHolderImages.find(img => img.id === id)?.imageUrl || '';
+
+// Organized Product Data using PlaceHolderImages
 const products: AgriProduct[] = [
   // Pesticides / Neem Based
   {
@@ -49,7 +51,7 @@ const products: AgriProduct[] = [
     brand: 'Neemraj',
     category: 'pesticides',
     type: 'Botanical Insecticide',
-    imageUrl: PlaceHolderImages.find(img => img.id === 'neemraj-3000')?.imageUrl || '',
+    imageUrl: getImg('pesticide-spray'),
   },
   {
     id: 'p2',
@@ -57,7 +59,7 @@ const products: AgriProduct[] = [
     brand: 'Kay Bee',
     category: 'pesticides',
     type: 'Botanical Insecticide',
-    imageUrl: PlaceHolderImages.find(img => img.id === 'organeem-1500')?.imageUrl || '',
+    imageUrl: getImg('pesticide-neem'),
   },
   // Fertilizers
   {
@@ -66,7 +68,7 @@ const products: AgriProduct[] = [
     brand: 'Utkarsh',
     category: 'fertilizers',
     type: 'Water Soluble Fertilizer',
-    imageUrl: PlaceHolderImages.find(img => img.id === 'utkarsh-npk-19')?.imageUrl || '',
+    imageUrl: getImg('fertilizer-npk'),
   },
   {
     id: 'f2',
@@ -74,15 +76,7 @@ const products: AgriProduct[] = [
     brand: 'Katyayani',
     category: 'fertilizers',
     type: 'Water Soluble Fertilizer',
-    imageUrl: PlaceHolderImages.find(img => img.id === 'katyayani-005234')?.imageUrl || '',
-  },
-  {
-    id: 'f3',
-    name: 'Pruthvi Rich 50 (Liquid NP 7-21-0)',
-    brand: 'Pruthvi',
-    category: 'fertilizers',
-    type: 'Liquid Fertilizer',
-    imageUrl: PlaceHolderImages.find(img => img.id === 'pruthvi-rich-50')?.imageUrl || '',
+    imageUrl: getImg('fertilizer-granular'),
   },
   // Seeds
   {
@@ -91,7 +85,7 @@ const products: AgriProduct[] = [
     brand: 'Green Manure',
     category: 'seeds',
     type: 'Green Manure & Live Fencing',
-    imageUrl: PlaceHolderImages.find(img => img.id === 'gliricidia-seeds')?.imageUrl || '',
+    imageUrl: getImg('seeds-hand'),
   },
   // Seed Treatment
   {
@@ -100,7 +94,7 @@ const products: AgriProduct[] = [
     brand: 'FMC',
     category: 'seed-treatment',
     type: 'Seed Treatment',
-    imageUrl: PlaceHolderImages.find(img => img.id === 'fmc-advantage')?.imageUrl || '',
+    imageUrl: getImg('seed-treatment-lab'),
   },
   {
     id: 'st2',
@@ -108,7 +102,7 @@ const products: AgriProduct[] = [
     brand: 'NewLeaf',
     category: 'seed-treatment',
     type: 'Botanical Seed Treatment',
-    imageUrl: PlaceHolderImages.find(img => img.id === 'newleaf-seedcare')?.imageUrl || '',
+    imageUrl: getImg('seedlings-green'),
   },
   // Insecticides
   {
@@ -117,12 +111,14 @@ const products: AgriProduct[] = [
     brand: 'Ultimate',
     category: 'insecticides',
     type: 'Chemical Insecticide',
-    imageUrl: PlaceHolderImages.find(img => img.id === 'ultimate-insecticide')?.imageUrl || '',
+    imageUrl: getImg('insecticide-pest'),
     packSize: '1 kg',
   },
 ];
 
 function ProductCard({ product }: { product: AgriProduct }) {
+  const imageMeta = PlaceHolderImages.find(img => img.imageUrl === product.imageUrl);
+  
   return (
     <Card className="group overflow-hidden border-none shadow-soft hover:shadow-soft-xl transition-all duration-500 rounded-[2rem] bg-card flex flex-col h-full animate-in fade-in slide-in-from-bottom-4">
       <div className="relative aspect-square overflow-hidden bg-muted/20">
@@ -131,6 +127,7 @@ function ProductCard({ product }: { product: AgriProduct }) {
           alt={product.name}
           fill
           className="object-cover transition-transform duration-1000 group-hover:scale-110"
+          data-ai-hint={imageMeta?.imageHint || 'agriculture product'}
         />
         <div className="absolute top-4 left-4">
           <Badge className="bg-white/90 backdrop-blur-md text-primary font-black border-none shadow-sm flex items-center gap-1.5 px-3 py-1 rounded-full uppercase text-[10px] tracking-widest">

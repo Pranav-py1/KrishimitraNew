@@ -43,8 +43,12 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
-// Sample Data for UI Enhancement
+// Helper to find image URL by ID
+const getImg = (id: string) => PlaceHolderImages.find(img => img.id === id)?.imageUrl || '';
+
+// Sample Data for UI Enhancement using PlaceHolderImages
 const SAMPLE_PRODUCE = [
   {
     id: 'p1',
@@ -56,7 +60,7 @@ const SAMPLE_PRODUCE = [
     unit: 'Dozen',
     quantity: 15,
     rating: 4.9,
-    image: 'https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=600',
+    image: getImg('mango-guide'),
     crops: ['Mango', 'Cashew', 'Kokum'],
     location: 'Vengurla, Ratnagiri'
   },
@@ -70,7 +74,7 @@ const SAMPLE_PRODUCE = [
     unit: 'kg',
     quantity: 500,
     rating: 4.7,
-    image: 'https://images.unsplash.com/photo-1729292933757-5e9d9e8d4ead?q=80&w=600',
+    image: getImg('onion-guide'),
     crops: ['Onion', 'Grapes', 'Tomato'],
     location: 'Lasalgaon, Nashik'
   },
@@ -84,7 +88,7 @@ const SAMPLE_PRODUCE = [
     unit: 'kg',
     quantity: 200,
     rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1609412058473-c199497c3c5d?q=80&w=600',
+    image: getImg('rice-guide'),
     crops: ['Rice', 'Wheat', 'Pulses'],
     location: 'Arjuni Morgaon, Gondia'
   },
@@ -98,7 +102,7 @@ const SAMPLE_PRODUCE = [
     unit: 'Bunch',
     quantity: 100,
     rating: 4.6,
-    image: 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?q=80&w=600',
+    image: getImg('jowar-guide'),
     crops: ['Spinach', 'Cilantro', 'Methi'],
     location: 'Manchar, Pune'
   }
@@ -234,7 +238,7 @@ export default function ConsumerDashboard() {
           {filteredProduce.map((item) => (
             <Card key={item.id} className="group border-none shadow-soft hover:shadow-soft-xl transition-all duration-500 hover:-translate-y-2 rounded-[2.5rem] bg-card overflow-hidden flex flex-col">
               <div className="relative aspect-square overflow-hidden bg-muted">
-                <Image src={item.image} alt={item.name} fill className="object-cover transition-transform duration-1000 group-hover:scale-110" />
+                <Image src={item.image} alt={item.name} fill className="object-cover transition-transform duration-1000 group-hover:scale-110" data-ai-hint="fresh produce" />
                 <Badge className="absolute top-4 right-4 bg-white/90 backdrop-blur-md text-primary font-black uppercase text-[10px] tracking-widest border-none shadow-sm px-3 py-1.5 rounded-full">
                   {item.type}
                 </Badge>

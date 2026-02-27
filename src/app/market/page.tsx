@@ -51,6 +51,9 @@ const categories = [
   { id: 'organic', name: { en: 'Organic', mr: 'सेंद्रिय' }, icon: Flower2, count: 56, color: 'bg-purple-500/10 text-purple-600' },
 ];
 
+// Helper to find image URL by ID
+const getImg = (id: string) => PlaceHolderImages.find(img => img.id === id)?.imageUrl || '';
+
 // Sample Products
 const sampleProduce = [
   {
@@ -62,7 +65,7 @@ const sampleProduce = [
     unit: 'Dozen',
     quantity: 15,
     category: 'fruits',
-    image: 'https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=600&auto=format&fit=crop',
+    image: getImg('mango-guide'),
   },
   {
     id: 'p2',
@@ -73,7 +76,7 @@ const sampleProduce = [
     unit: 'kg',
     quantity: 500,
     category: 'vegetables',
-    image: 'https://images.unsplash.com/photo-1729292933757-5e9d9e8d4ead?q=80&w=600&auto=format&fit=crop',
+    image: getImg('onion-guide'),
   },
   {
     id: 'p3',
@@ -84,7 +87,7 @@ const sampleProduce = [
     unit: 'kg',
     quantity: 200,
     category: 'grains',
-    image: 'https://images.unsplash.com/photo-1609412058473-c199497c3c5d?q=80&w=600&auto=format&fit=crop',
+    image: getImg('rice-guide'),
   },
   {
     id: 'p4',
@@ -95,11 +98,11 @@ const sampleProduce = [
     unit: 'Litre',
     quantity: 25,
     category: 'dairy',
-    image: 'https://images.unsplash.com/photo-1589927986089-35812388d1f4?q=80&w=600&auto=format&fit=crop',
+    image: getImg('jowar-guide'), // Fallback to another agri image if specific ones missing
   },
 ];
 
-// Sample Farmers
+// Featured Farmers
 const featuredFarmers = [
   {
     id: 'f1',
@@ -149,11 +152,12 @@ export default function MarketPage() {
       {/* Hero Section */}
       <section className="relative w-full h-[40vh] min-h-[300px] flex items-center justify-center overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1488459711635-de03ef46d5e7?q=80&w=1200&auto=format&fit=crop"
+          src={getImg('market-hero')}
           alt="Fresh market produce"
           fill
           className="object-cover"
           priority
+          data-ai-hint="farmers market"
         />
         <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px]" />
         <div className="relative container mx-auto px-4 text-center text-white">
@@ -275,6 +279,7 @@ export default function MarketPage() {
                     alt={product.title} 
                     fill 
                     className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                    data-ai-hint="fresh harvest"
                   />
                   <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full shadow-sm border border-white/50 flex items-center gap-1">
                     <MapPin className="h-3 w-3 text-primary" />

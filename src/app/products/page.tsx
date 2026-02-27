@@ -22,7 +22,8 @@ import {
   Sprout, 
   Bug, 
   Leaf,
-  Beaker
+  Beaker,
+  Sparkles
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -247,14 +248,15 @@ export default function ProductsPage() {
       <section className="relative w-full py-20 md:py-32 bg-primary/5 border-b overflow-hidden">
         <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-[600px] h-[600px] rounded-full bg-primary/5 blur-3xl pointer-events-none" />
         <div className="container mx-auto px-4 md:px-6 relative z-10 text-center">
-          <Badge className="bg-primary/10 text-primary border-none shadow-none px-4 py-1.5 rounded-full uppercase text-xs font-black tracking-widest mb-6">
-            Agricultural Products
+          <Badge className="bg-accent/10 text-accent-foreground border-none shadow-none px-4 py-1.5 rounded-full uppercase text-[10px] font-black tracking-widest mb-6 flex items-center gap-2 w-fit mx-auto border border-accent/20">
+            <Sparkles className="h-3 w-3" />
+            Upcoming Update: Full Marketplace Features
           </Badge>
           <h1 className="text-4xl md:text-7xl font-bold font-headline mb-6 tracking-tight">
-            Cultivating Excellence
+            Agricultural Products
           </h1>
           <p className="max-w-2xl mx-auto text-lg md:text-2xl text-muted-foreground font-medium leading-relaxed">
-            High-performance seeds, certified fertilizers, and sustainable plant protection products sourced for modern farming.
+            Discover high-performance seeds, certified fertilizers, and sustainable plant protection. Direct purchasing and delivery features are coming soon.
           </p>
         </div>
       </section>

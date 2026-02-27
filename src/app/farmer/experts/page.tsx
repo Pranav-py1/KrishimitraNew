@@ -72,6 +72,7 @@ export default function ExpertsListPage() {
           className="h-16 pl-12 rounded-3xl border-none shadow-soft-xl bg-white text-lg focus:ring-4 ring-primary/5 transition-all"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          suppressHydrationWarning
         />
       </div>
 

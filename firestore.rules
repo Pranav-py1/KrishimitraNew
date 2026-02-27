@@ -1,8 +1,8 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Allow read/write access to all documents for any authenticated user.
-    // This supports the demo's role-based anonymous authentication system.
+    // Universal access for authenticated users to support demo personas
+    // Deployment Trigger: 2024-05-20T12:00:00Z
     match /{document=**} {
       allow read, write: if request.auth != null;
     }

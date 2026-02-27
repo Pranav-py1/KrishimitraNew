@@ -32,7 +32,13 @@ export function RoleProvider({ children }: { children: ReactNode }) {
   const setRole = (newRole: UserRole) => {
     setRoleState(newRole);
     localStorage.setItem('krishimitra-role', newRole);
-    router.push(`/dashboard/${newRole.replace('_', '-')}`);
+    
+    // Special case for supplier dashboard route
+    if (newRole === 'supplier') {
+      router.push('/supplier-dashboard');
+    } else {
+      router.push(`/dashboard/${newRole.replace('_', '-')}`);
+    }
   };
 
   const clearRole = () => {

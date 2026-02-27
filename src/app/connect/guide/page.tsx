@@ -11,7 +11,8 @@ import {
   Loader2, 
   Users,
   IndianRupee,
-  CheckCircle2
+  CheckCircle2,
+  MessageSquare
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -28,6 +29,7 @@ import {
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
+import Link from 'next/link';
 
 const experts = [
   { 
@@ -132,7 +134,7 @@ export default function GuideListPage() {
               </div>
             </CardContent>
 
-            <CardFooter className="p-8 pt-0">
+            <CardFooter className="p-8 pt-0 flex flex-col gap-3">
               <Dialog>
                 <DialogTrigger asChild>
                   <Button className="w-full h-14 rounded-2xl font-bold text-lg shadow-lg shadow-primary/10 transition-all hover:scale-[1.02]">
@@ -171,6 +173,12 @@ export default function GuideListPage() {
                   </form>
                 </DialogContent>
               </Dialog>
+              
+              <Button variant="outline" className="w-full h-12 rounded-xl font-bold border-2 transition-all" asChild>
+                <Link href="/messages">
+                  <MessageSquare className="mr-2 h-4 w-4" /> Chat with Expert
+                </Link>
+              </Button>
             </CardFooter>
           </Card>
         ))}

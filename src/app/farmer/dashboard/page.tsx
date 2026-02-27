@@ -44,6 +44,13 @@ const connectionOptions = [
     href: '/connect/farmers',
     color: 'bg-emerald-500/10 text-emerald-600',
   },
+  {
+    title: 'View Consumers',
+    description: 'Connect with daily and bulk consumers who purchase fresh vegetables and fruits directly from farmers.',
+    icon: ShoppingBag,
+    href: '/connect/consumer',
+    color: 'bg-rose-500/10 text-rose-600',
+  },
 ];
 
 function ConnectionCard({ option, idx }: { option: typeof connectionOptions[0], idx: number }) {
@@ -103,7 +110,7 @@ export default function FarmerDashboard() {
           <h2 className="text-3xl font-bold font-headline">Connect & Explore</h2>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {connectionOptions.map((option, idx) => (
             <ConnectionCard key={option.href} option={option} idx={idx} />
           ))}

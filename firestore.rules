@@ -1,16 +1,32 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // For MVP/Demo purposes, allow any authenticated user to read and write all documents.
-    // This supports persona-switching and cross-role interactions (e.g. Farmer reading Expert profile).
-    match /{document=**} {
-      allow read, write: if request.auth != null;
+
+    // User collection rules: 
+    // - Authenticated users can find others (list) and view profiles (get)
+    // - Users can only manage their own profile (create, update, delete)
+    match /users/{userId} {
+      allow get, list: if request.auth != null;
+      allow create, update, delete: if request.auth != null && request.auth.uid == userId;
     }
 
-    // Specific ownership rules for user profiles to prevent unauthorized hijacking
-    match /users/{userId} {
-      allow read: if request.auth != null;
-      allow write: if request.auth != null && request.auth.uid == userId;
+    // Broad rules for other collections to support prototype interactions
+    // This allows farmers to book machines, request soil tests, and experts to post articles.
+    match /consultations/{id} { allow read, write: if request.auth != null; }
+    match /expertArticles/{id} { allow read, write: if request.auth != null; }
+    match /machines/{id} { allow read, write: if request.auth != null; }
+    match /produce/{id} { allow read, write: if request.auth != null; }
+    match /livestockListings/{id} { allow read, write: if request.auth != null; }
+    match /bookings/{id} { allow read, write: if request.auth != null; }
+    match /soilTests/{id} { allow read, write: if request.auth != null; }
+    match /sales/{id} { allow read, write: if request.auth != null; }
+    
+    // Chat and Messaging
+    match /chatRooms/{id} { 
+      allow read, write: if request.auth != null; 
+      match /messages/{msgId} { 
+        allow read, write: if request.auth != null; 
+      }
     }
   }
 }

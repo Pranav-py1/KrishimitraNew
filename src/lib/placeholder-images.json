@@ -1,0 +1,70 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero-farmer",
+      "description": "A farmer standing in a lush green field at sunrise.",
+      "imageUrl": "https://images.unsplash.com/photo-1630600967074-3095a8865ca3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxmYXJtZXIlMjBmaWVsZHxlbnwwfHx8fDE3NjQxNjQ3NDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "farmer field"
+    },
+    {
+      "id": "neemraj-3000",
+      "description": "Neemraj Super 3000 PPM botanical insecticide.",
+      "imageUrl": "https://picsum.photos/seed/neem1/600/600",
+      "imageHint": "neem pesticide"
+    },
+    {
+      "id": "organeem-1500",
+      "description": "Organeem 1500 PPM Neem Oil by Kay Bee.",
+      "imageUrl": "https://images.unsplash.com/photo-1702623945459-d2ebfec1ca31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxuZWVtJTIwb2lsfGVufDB8fHx8MTc3MjE4OTU1MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "neem oil"
+    },
+    {
+      "id": "utkarsh-npk-19",
+      "description": "Utkarsh NPK 19:19:19 water soluble fertilizer.",
+      "imageUrl": "https://images.unsplash.com/photo-1719284712101-4bb4a5100d5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxucGslMjBmZXJ0aWxpemVyfGVufDB8fHx8MTc3MjE4OTU1MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "npk fertilizer"
+    },
+    {
+      "id": "katyayani-005234",
+      "description": "NPK 00:52:34 fertilizer by Katyayani.",
+      "imageUrl": "https://images.unsplash.com/photo-1515150144380-bca9f1650ed9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzb2x1YmxlJTIwZmVydGlsaXplcnxlbnwwfHx8fDE3NzIxODk1NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "soluble fertilizer"
+    },
+    {
+      "id": "pruthvi-rich-50",
+      "description": "Pruthvi Rich 50 Liquid NP 7-21-0.",
+      "imageUrl": "https://images.unsplash.com/photo-1758608951483-0cbeef303869?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsaXF1aWQlMjBmZXJ0aWxpemVyfGVufDB8fHx8MTc3MjE4OTU1MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "liquid fertilizer"
+    },
+    {
+      "id": "gliricidia-seeds",
+      "description": "Gliricidia Sepium seeds for green manure.",
+      "imageUrl": "https://images.unsplash.com/photo-1698139214411-ef5712051f63?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxncmVlbiUyMHNlZWRzfGVufDB8fHx8MTc3MjE4OTU1MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "green seeds"
+    },
+    {
+      "id": "fmc-advantage",
+      "description": "FMC Advantage 25 DS seed treatment.",
+      "imageUrl": "https://images.unsplash.com/photo-1592327102566-876a7919586e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzZWVkJTIwdHJlYXRtZW50fGVufDB8fHx8MTc3MjE4OTU1MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "seed treatment"
+    },
+    {
+      "id": "newleaf-seedcare",
+      "description": "NewLeaf botanical seed care.",
+      "imageUrl": "https://images.unsplash.com/photo-1759345556198-5ec4c4a0a976?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxib3RhbmljYWwlMjBjYXJlfGVufDB8fHx8MTc3MjE4OTU1MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "botanical care"
+    },
+    {
+      "id": "ultimate-insecticide",
+      "description": "Ultimate Insecticide 1kg chemical insecticide.",
+      "imageUrl": "https://images.unsplash.com/photo-1722532254518-89016ba75a15?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxpbnNlY3RpY2lkZSUyMGJvdHRsZXxlbnwwfHx8fDE3NzIxODk1NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "insecticide bottle"
+    },
+    {
+      "id": "user-avatar",
+      "description": "A generic user avatar.",
+      "imageUrl": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjQxNDg4ODd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Refined Agricultural Palette */
+    --background: 125 43% 96%;
+    --foreground: 122 40% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 122 40% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 122 40% 15%;
+    --primary: 122 46% 34%; /* Rich Green #2E7D32 */
+    --primary-foreground: 125 43% 98%;
+    --secondary: 125 30% 92%;
+    --secondary-foreground: 122 40% 15%;
+    --muted: 125 20% 90%;
+    --muted-foreground: 122 20% 35%;
+    --accent: 38 92% 55%; /* Warm Golden Yellow */
+    --accent-foreground: 122 40% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 125 20% 85%;
+    --input: 125 20% 88%;
+    --ring: 122 46% 34%;
+    --radius: 1rem; /* Increased for a softer, more modern feel */
+    --chart-1: 122 46% 34%;
+    --chart-2: 38 92% 55%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+ 
+  .dark {
+    /* Reduced Green Strength for a cleaner Dark Mode */
+    --background: 122 15% 5%;
+    --foreground: 125 10% 98%;
+    --card: 122 12% 8%;
+    --card-foreground: 125 10% 98%;
+    --popover: 122 12% 8%;
+    --popover-foreground: 125 10% 98%;
+    --primary: 122 35% 45%; /* Muted forest green */
+    --primary-foreground: 125 10% 98%;
+    --secondary: 122 10% 12%;
+    --secondary-foreground: 125 10% 98%;
+    --muted: 122 10% 12%;
+    --muted-foreground: 122 8% 65%;
+    --accent: 38 80% 50%;
+    --accent-foreground: 122 10% 5%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 122 10% 16%;
+    --input: 122 10% 16%;
+    --ring: 122 35% 45%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply bg-background text-foreground selection:bg-primary/20 selection:text-primary;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-headline tracking-tight;
+  }
+}
+
+/* Custom shadow utilities for more depth */
+@layer utilities {
+  .shadow-soft {
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+  }
+  .shadow-soft-xl {
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+  }
+}

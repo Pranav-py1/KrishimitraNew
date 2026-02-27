@@ -1,0 +1,119 @@
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper Functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function getRole() {
+      let path = /databases/$(database)/documents/users/$(request.auth.uid);
+      return exists(path) ? get(path).data.role : 'none';
+    }
+    
+    function isAdmin() {
+      return isSignedIn() && getRole() == 'admin';
+    }
+
+    function isBusinessUser() {
+      let role = getRole();
+      return isSignedIn() && (role == 'exporter' || role == 'supplier');
+    }
+
+    function isFarmer() {
+      return isSignedIn() && getRole() == 'farmer';
+    }
+
+    // users collection
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      allow update: if isOwner(userId) || isAdmin();
+      allow create: if isOwner(userId);
+      allow list: if isAdmin();
+    }
+
+    // machines collection
+    match /machines/{machineId} {
+      allow read: if true;
+      allow create: if isBusinessUser() && request.resource.data.retailerId == request.auth.uid;
+      allow update, delete: if (isBusinessUser() && resource.data.retailerId == request.auth.uid) || isAdmin();
+    }
+
+    // products collection
+    match /products/{productId} {
+      allow read: if true;
+      allow create: if isBusinessUser() && request.resource.data.retailerId == request.auth.uid;
+      allow update, delete: if (isBusinessUser() && resource.data.retailerId == request.auth.uid) || isAdmin();
+    }
+    
+    // soilTests collection
+    match /soilTests/{soilTestId} {
+      allow create: if isSignedIn();
+      allow get: if isSignedIn() && (resource.data.farmerId == request.auth.uid || isAdmin());
+      allow update, delete: if isSignedIn() && (resource.data.farmerId == request.auth.uid || isAdmin());
+      
+      allow list: if isSignedIn() && (resource.data.farmerId == request.auth.uid || isAdmin());
+    }
+
+    // bookings collection
+    match /bookings/{bookingId} {
+      allow create: if isSignedIn();
+      allow get: if isSignedIn() && (
+                    resource.data.farmerId == request.auth.uid || 
+                    resource.data.retailerId == request.auth.uid || 
+                    isAdmin()
+                  );
+      allow update, delete: if isSignedIn() && (
+                              resource.data.farmerId == request.auth.uid || 
+                              resource.data.retailerId == request.auth.uid || 
+                              isAdmin()
+                            );
+
+      allow list: if isSignedIn() && (
+                    resource.data.farmerId == request.auth.uid || 
+                    resource.data.retailerId == request.auth.uid || 
+                    isAdmin()
+                  );
+    }
+
+    // produce collection
+    match /produce/{produceId} {
+      allow read: if true;
+      allow create: if isFarmer() && request.resource.data.farmerId == request.auth.uid;
+      allow update, delete: if (isFarmer() && resource.data.farmerId == request.auth.uid) || isAdmin();
+    }
+
+    // sales collection
+    match /sales/{saleId} {
+      allow create: if isSignedIn() && 
+                      request.resource.data.buyerId == request.auth.uid && 
+                      request.resource.data.buyerId != request.resource.data.sellerId;
+
+      allow get: if isSignedIn() && (
+                    resource.data.buyerId == request.auth.uid || 
+                    resource.data.sellerId == request.auth.uid || 
+                    isAdmin()
+                  );
+
+      allow list: if isSignedIn() && (
+                    resource.data.buyerId == request.auth.uid || 
+                    resource.data.sellerId == request.auth.uid || 
+                    isAdmin()
+                  );
+    }
+
+    // livestockListings collection
+    match /livestockListings/{listingId} {
+      allow read: if (isSignedIn() && resource.data.status == "active") || (isSignedIn() && resource.data.farmerId == request.auth.uid) || isAdmin();
+      allow create: if isFarmer() && request.resource.data.farmerId == request.auth.uid;
+      allow update, delete: if (isFarmer() && resource.data.farmerId == request.auth.uid) || isAdmin();
+      allow list: if isSignedIn();
+    }
+  }
+}

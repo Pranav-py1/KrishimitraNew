@@ -9,7 +9,8 @@ import {
   Store, 
   ShoppingBag, 
   ArrowRight,
-  GraduationCap
+  GraduationCap,
+  Users
 } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -42,6 +43,13 @@ const connectionOptions = [
     icon: GraduationCap,
     href: '/connect/guide',
     color: 'bg-teal-500/10 text-teal-600',
+  },
+  {
+    title: 'View Other Farmers',
+    description: 'Connect with fellow farmers to share knowledge, collaborate, and grow together.',
+    icon: Users,
+    href: '/connect/farmers',
+    color: 'bg-emerald-500/10 text-emerald-600',
   },
 ];
 

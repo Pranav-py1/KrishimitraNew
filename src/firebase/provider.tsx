@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { DependencyList, createContext, useContext, ReactNode, useMemo, useState, useEffect } from 'react';
@@ -66,12 +65,11 @@ export function useMemoFirebase<T>(factory: () => T, deps: DependencyList): T {
  */
 export const useUser = () => {
   const { auth } = useFirebase();
-  const [user, setUser] = useState<FirebaseUser | null>(null);
+  const [user, setUser] = useState<FirebaseUser | null>(auth.currentUser);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
   const [role, setRole] = useState<string | null>(null);
 
   useEffect(() => {
-    // 1. Real Auth Listener
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser);
       setIsAuthLoading(false);
@@ -80,18 +78,16 @@ export const useUser = () => {
   }, [auth]);
 
   useEffect(() => {
-    // 2. Mock Role Loading & Anonymous Auth Trigger
     const savedRole = localStorage.getItem('krishimitra-role');
     setRole(savedRole);
     
     // Auto sign-in anonymously if a role is selected but no user session exists
-    // This provides the request.auth context needed for Firestore Security Rules
-    if (savedRole && !auth.currentUser && !user) {
+    if (savedRole && !auth.currentUser) {
       signInAnonymously(auth).catch((err) => {
         console.error("Critical: Anonymous sign-in failed. Firestore access will be blocked.", err);
       });
     }
-  }, [auth, user]);
+  }, [auth]);
 
   const userData = (user && role) ? { 
     id: user.uid,

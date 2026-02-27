@@ -10,6 +10,7 @@ import {
 } from 'firebase/firestore';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
+import { useUser } from '../provider';
 
 /** Utility type to add an 'id' field to a given type T. */
 type WithId<T> = T & { id: string };
@@ -26,7 +27,7 @@ export interface UseDocResult<T> {
 
 /**
  * React hook to subscribe to a single Firestore document in real-time.
- * Handles nullable references.
+ * Handles nullable references and waits for authentication.
  * 
  * @template T Optional type for document data. Defaults to any.
  * @param {DocumentReference<DocumentData> | null | undefined} docRef -
@@ -36,6 +37,7 @@ export interface UseDocResult<T> {
 export function useDoc<T = any>(
   docRef: DocumentReference<DocumentData> | null | undefined,
 ): UseDocResult<T> {
+  const { user, isUserLoading } = useUser();
   type StateDataType = WithId<T> | null;
 
   const [data, setData] = useState<StateDataType>(null);
@@ -43,7 +45,8 @@ export function useDoc<T = any>(
   const [error, setError] = useState<FirestoreError | Error | null>(null);
 
   useEffect(() => {
-    if (!docRef) {
+    // ENFORCE: No queries until auth is ready and user exists
+    if (!docRef || isUserLoading || !user) {
       setData(null);
       setIsLoading(false);
       setError(null);
@@ -79,7 +82,7 @@ export function useDoc<T = any>(
     );
 
     return () => unsubscribe();
-  }, [docRef]);
+  }, [docRef, user, isUserLoading]);
 
   return { data, isLoading, error };
 }

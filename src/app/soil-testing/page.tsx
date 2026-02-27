@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 import { CalendarIcon, FlaskConical, Loader2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection } from 'firebase/firestore';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -72,10 +72,11 @@ export default function SoilTestingPage() {
   }, [user, form]);
 
   async function onSubmit(values: z.infer<typeof soilTestSchema>) {
-    if (!user) {
-      toast({ variant: 'destructive', title: 'You must be logged in to book a test.' });
+    if (isUserLoading || !user) {
+      toast({ variant: 'destructive', title: 'Authentication Error', description: 'Please wait for your session to initialize.' });
       return;
     }
+    
     setIsLoading(true);
     
     try {
@@ -85,7 +86,6 @@ export default function SoilTestingPage() {
         location: `${values.address}, ${values.pincode}`,
         preferredDate: values.preferredDate.toISOString(),
         status: 'Pending',
-        // These fields are from the form, not directly in the schema but useful for admins
         farmerName: values.fullName, 
         farmerPhone: `+91${values.phone}`
       };
@@ -101,7 +101,7 @@ export default function SoilTestingPage() {
       toast({
         variant: 'destructive',
         title: 'Booking Failed',
-        description: 'Could not book the soil test. Please try again.',
+        description: error.message || 'Could not book the soil test. Please try again.',
       });
     } finally {
       setIsLoading(false);

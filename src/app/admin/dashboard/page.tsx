@@ -107,16 +107,16 @@ export default function AdminDashboardPage() {
   const { user, isUserLoading } = useUser();
 
   const unapprovedMachinesQuery = useMemoFirebase(() => {
-    if (!user) return null;
+    if (isUserLoading || !user) return null;
     return query(collection(firestore, 'machines'), where('approved', '==', false));
-  }, [firestore, user]);
+  }, [firestore, user, isUserLoading]);
   
   const { data: unapprovedMachines, isLoading: isLoadingMachines, error: machinesError, forceRefetch: refetchMachines } = useCollection<Machine>(unapprovedMachinesQuery);
   
   const unapprovedProductsQuery = useMemoFirebase(() => {
-    if (!user) return null;
+    if (isUserLoading || !user) return null;
     return query(collection(firestore, 'products'), where('approved', '==', false));
-  }, [firestore, user]);
+  }, [firestore, user, isUserLoading]);
   
   const { data: unapprovedProducts, isLoading: isLoadingProducts, error: productsError, forceRefetch: refetchProducts } = useCollection<Product>(unapprovedProductsQuery);
 

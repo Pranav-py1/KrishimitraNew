@@ -11,6 +11,7 @@ import {
 } from 'firebase/firestore';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
+import { useUser } from '../provider';
 
 /** Utility type to add an 'id' field to a given type T. */
 export type WithId<T> = T & { id: string };
@@ -40,7 +41,7 @@ export interface InternalQuery extends Query<DocumentData> {
 
 /**
  * React hook to subscribe to a Firestore collection or query in real-time.
- * Handles nullable references/queries.
+ * Handles nullable references/queries and waits for authentication.
  * 
  * @template T Optional type for document data. Defaults to any.
  * @param {CollectionReference<DocumentData> | Query<DocumentData> | null | undefined} targetRefOrQuery -
@@ -50,6 +51,7 @@ export interface InternalQuery extends Query<DocumentData> {
 export function useCollection<T = any>(
     targetRefOrQuery: CollectionReference<DocumentData> | Query<DocumentData> | null | undefined,
 ): UseCollectionResult<T> {
+  const { user, isUserLoading } = useUser();
   type ResultItemType = WithId<T>;
   type StateDataType = ResultItemType[] | null;
 
@@ -63,7 +65,8 @@ export function useCollection<T = any>(
   }, []);
 
   useEffect(() => {
-    if (!targetRefOrQuery) {
+    // ENFORCE: No queries until auth is ready and user exists
+    if (!targetRefOrQuery || isUserLoading || !user) {
       setData(null);
       setIsLoading(false);
       setError(null);
@@ -104,7 +107,7 @@ export function useCollection<T = any>(
     );
 
     return () => unsubscribe();
-  }, [targetRefOrQuery, refetchIndex]);
+  }, [targetRefOrQuery, refetchIndex, user, isUserLoading]);
 
   return { data, isLoading, error, forceRefetch };
 }

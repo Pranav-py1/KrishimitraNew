@@ -19,6 +19,19 @@ export type User = {
     pincode?: string;
     address?: string;
   };
+  // Exporter/Business specific
+  companyName?: string;
+  productsBuying?: string[];
+  priceRange?: string;
+  capacity?: string;
+  rating?: number;
+  profileImageUrl?: string;
+  shopDetails?: {
+    name: string;
+    gst?: string;
+    address: string;
+    description?: string;
+  };
 };
 
 export type Consultation = {
@@ -137,4 +150,20 @@ export type LivestockListing = {
   imageURL: string;
   createdAt: string;
   status: 'active' | 'sold';
+};
+
+export type ChatRoom = {
+  id: string;
+  participants: string[];
+  participantNames: Record<string, string>;
+  lastMessage: string;
+  lastMessageTimestamp: string;
+};
+
+export type ChatMessage = {
+  id: string;
+  senderId: string;
+  senderName: string;
+  text: string;
+  timestamp: string;
 };

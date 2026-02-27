@@ -1,4 +1,6 @@
 rules_version = '2';
+
+// Force deployment at: 2024-05-20T10:00:00Z (Hackathon Demo Mode)
 service cloud.firestore {
   match /databases/{database}/documents {
     match /{document=**} {

@@ -8,7 +8,6 @@ import {
   Truck, 
   Store, 
   ShoppingBag, 
-  MessageCircle,
   ArrowRight,
   GraduationCap
 } from 'lucide-react';
@@ -43,13 +42,6 @@ const connectionOptions = [
     icon: GraduationCap,
     href: '/connect/guide',
     color: 'bg-teal-500/10 text-teal-600',
-  },
-  {
-    title: 'Chat with Other Farmers',
-    description: 'Collaborate and communicate with fellow farmers.',
-    icon: MessageCircle,
-    href: '/messages',
-    color: 'bg-amber-500/10 text-amber-600',
   },
 ];
 
@@ -110,7 +102,7 @@ export default function FarmerDashboard() {
           <h2 className="text-3xl font-bold font-headline">Connect & Explore</h2>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {connectionOptions.map((option, idx) => (
             <ConnectionCard key={option.href} option={option} idx={idx} />
           ))}

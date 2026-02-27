@@ -93,7 +93,8 @@ export const useUser = () => {
   }, [auth, isAuthLoading]);
 
   // Combined loading state to ensure components wait for both role and session.
-  const isUserLoading = isAuthLoading || isRoleLoading;
+  // CRITICAL FIX: If a role is present in local storage, wait for the user session to initialize.
+  const isUserLoading = isAuthLoading || isRoleLoading || (!!role && !user);
 
   const userData = (user && role) ? { 
     id: user.uid,

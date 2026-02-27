@@ -101,8 +101,13 @@ export default function ExporterDashboard() {
         {/* Header */}
         <div className="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <h1 className="text-3xl font-bold font-headline capitalize tracking-tight">{activeTab}</h1>
-            <p className="text-muted-foreground">Manage your export operations and buyer requirements.</p>
+            <h1 className="text-4xl md:text-5xl font-bold font-headline tracking-tight mb-2 text-foreground">Exporter Dashboard</h1>
+            <div className="flex items-center gap-2">
+              <Badge variant="secondary" className="capitalize font-bold text-primary px-3 py-1 rounded-lg bg-primary/10">
+                {activeTab}
+              </Badge>
+              <p className="text-muted-foreground text-sm">Manage your export operations and buyer requirements.</p>
+            </div>
           </div>
           <div className="flex gap-3">
             <Button className="rounded-full font-bold shadow-lg shadow-primary/20">

@@ -18,25 +18,40 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { User as UserType } from '@/lib/data';
 
 export default function ExpertsListPage() {
-  const { user } = useUser();
+  const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
   const [searchTerm, setSearchTerm] = useState('');
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const expertsQuery = useMemoFirebase(() => {
-    if (!user) return null;
+    // Prevent query execution until auth is ready to avoid permission errors
+    if (isUserLoading || !user) return null;
     return query(collection(firestore, 'users'), where('role', '==', 'expert'));
-  }, [firestore, user]);
+  }, [firestore, user, isUserLoading]);
   
-  const { data: experts, isLoading } = useCollection<UserType>(expertsQuery);
+  const { data: experts, isLoading: isQueryLoading } = useCollection<UserType>(expertsQuery);
 
   const filteredExperts = experts?.filter(e => 
     e.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
     e.expertiseCategory?.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  // Defer rendering until mounted to prevent hydration mismatches from browser extensions
+  if (!mounted || isUserLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
+        <Loader2 className="h-16 w-16 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-12 md:px-6 md:py-20 animate-in fade-in duration-1000 bg-background/50">
@@ -60,7 +75,7 @@ export default function ExpertsListPage() {
         />
       </div>
 
-      {isLoading ? (
+      {isQueryLoading ? (
         <div className="flex justify-center py-20"><Loader2 className="h-12 w-12 animate-spin text-primary" /></div>
       ) : !filteredExperts || filteredExperts.length === 0 ? (
         <div className="text-center py-20 bg-muted/20 rounded-[3rem] border-4 border-dashed">

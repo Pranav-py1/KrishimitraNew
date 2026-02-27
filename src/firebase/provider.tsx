@@ -67,6 +67,7 @@ export const useUser = () => {
   const { auth } = useFirebase();
   const [user, setUser] = useState<FirebaseUser | null>(auth.currentUser);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
+  const [isRoleLoading, setIsRoleLoading] = useState(true);
   const [role, setRole] = useState<string | null>(null);
 
   useEffect(() => {
@@ -80,6 +81,7 @@ export const useUser = () => {
   useEffect(() => {
     const savedRole = localStorage.getItem('krishimitra-role');
     setRole(savedRole);
+    setIsRoleLoading(false);
     
     // Auto sign-in anonymously if a role is selected but no user session exists
     if (savedRole && !auth.currentUser) {
@@ -110,8 +112,8 @@ export const useUser = () => {
   return { 
     user, 
     userData, 
-    isUserLoading: isAuthLoading, 
-    isUserDataLoading: isAuthLoading, 
+    isUserLoading: isAuthLoading || isRoleLoading, 
+    isUserDataLoading: isAuthLoading || isRoleLoading, 
     userError: null 
   };
 };

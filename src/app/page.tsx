@@ -195,7 +195,7 @@ export default function Home() {
                   <div className="flex-grow flex items-end w-full pb-8 px-8">
                     <Button variant="ghost" asChild className="w-full h-12 rounded-2xl group-hover:bg-primary group-hover:text-primary-foreground transition-all">
                       <Link href={feature.href} className="font-bold">
-                        Future Scope <ArrowRight className="ml-2 h-4 w-4" />
+                        {t.registerBtn} <ArrowRight className="ml-2 h-4 w-4" />
                       </Link>
                     </Button>
                   </div>

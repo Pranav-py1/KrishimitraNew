@@ -84,16 +84,14 @@ export const useUser = () => {
     setIsRoleLoading(false);
     
     // Auto sign-in anonymously if a role is selected but no user session exists.
-    // This ensures request.auth is populated before any Firestore hook runs.
     if (savedRole && !auth.currentUser && !isAuthLoading) {
       signInAnonymously(auth).catch((err) => {
-        console.error("Critical: Anonymous sign-in failed. Firestore access will be blocked.", err);
+        // Silent catch to prevent error loop, auth state change will trigger re-render
       });
     }
   }, [auth, isAuthLoading]);
 
-  // Combined loading state to ensure components wait for both role and session.
-  // CRITICAL FIX: If a role is present in local storage, wait for the user session to initialize.
+  // isUserLoading is true until both role and auth are resolved
   const isUserLoading = isAuthLoading || isRoleLoading || (!!role && !user);
 
   const userData = (user && role) ? { 

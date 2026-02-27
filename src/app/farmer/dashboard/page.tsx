@@ -41,14 +41,14 @@ const connectionOptions = [
     title: 'View Guides / Experts',
     description: 'Get advice from agricultural experts and service providers.',
     icon: Lightbulb,
-    href: '/connect/guide',
+    href: '/farmer/experts',
     color: 'bg-purple-500/10 text-purple-600',
   },
   {
     title: 'Chat with Other Farmers',
     description: 'Collaborate and communicate with fellow farmers.',
     icon: MessageCircle,
-    href: '/chat/farmers',
+    href: '/messages',
     color: 'bg-amber-500/10 text-amber-600',
   },
 ];

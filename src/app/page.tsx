@@ -39,6 +39,11 @@ const translations = {
     registerTitle: 'Join the KrishiMitra Community',
     registerSub: 'Be part of a growing network of farmers, dealers, and consumers transforming the agricultural landscape.',
     registerBtn: 'Get Started',
+    alreadyRegistered: 'Already registered on KrishiMitra?',
+    goDashboard: 'Go to Dashboard',
+    continueDashboard: 'Continue to Dashboard',
+    welcomeBack: 'Welcome back',
+    accessTools: 'Access your profile and management tools instantly.',
     features: [
       { title: 'Rent Machinery', description: 'Access top-tier farm equipment on-demand to optimize your labor and yield.', href: '/machines' },
       { title: 'Agri Products', description: 'Verified seeds, fertilizers, and tools from trusted local retailers.', href: '/products' },
@@ -62,6 +67,11 @@ const translations = {
     registerTitle: 'कृषिमित्र समुदायात सामील व्हा',
     registerSub: 'कृषी क्षेत्राचा कायापालट करणाऱ्या शेतकरी, विक्रेते आणि ग्राहकांच्या वाढत्या नेटवर्कचा भाग व्हा.',
     registerBtn: 'सुरुवात करा',
+    alreadyRegistered: 'कृषिमित्र वर आधीच नोंदणी केली आहे का?',
+    goDashboard: 'डॅशबोर्डवर जा',
+    continueDashboard: 'डॅशबोर्ड सुरू ठेवा',
+    welcomeBack: 'पुनश्च स्वागत',
+    accessTools: 'तुमचे प्रोफाइल आणि व्यवस्थापन साधने त्वरित मिळवा.',
     features: [
       { title: 'यंत्रसामग्री भाड्याने', description: 'तुमचे श्रम आणि उत्पादन ऑप्टिमाइझ करण्यासाठी मागणीनुसार सर्वोत्तम उपकरणे मिळवा.', href: '/machines' },
       { title: 'कृषी उत्पादने', description: 'विश्वासू स्थानिक विक्रेत्यांकडून प्रमाणित बियाणे, खते आणि साधने.', href: '/products' },
@@ -100,6 +110,15 @@ export default function Home() {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleDashboardRedirect = () => {
+    if (user && userData?.role) {
+      const normalizedRole = userData.role.trim().toLowerCase().replace('_', '-');
+      router.push(`/dashboard/${normalizedRole}`);
+    } else {
+      router.push('/login');
+    }
+  };
 
   if (!mounted) {
     return (
@@ -197,7 +216,7 @@ export default function Home() {
                 {t.registerSub}
               </p>
             </div>
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5 mb-16">
               {t.roles.map((role, index) => {
                 const Icon = roleIcons[index];
                 return (
@@ -225,6 +244,35 @@ export default function Home() {
                   </Card>
                 );
               })}
+            </div>
+
+            {/* Already Registered Section */}
+            <div className="max-w-2xl mx-auto">
+              <Card className="border-none shadow-soft-xl rounded-[2.5rem] bg-primary/5 p-8 md:p-12 text-center animate-in fade-in slide-in-from-bottom-4 duration-1000">
+                <div className="flex flex-col items-center gap-6">
+                  {user ? (
+                    <>
+                      <div className="space-y-2">
+                        <h3 className="text-2xl font-bold font-headline">{t.welcomeBack}, {userData?.name || 'Friend'}</h3>
+                        <p className="text-muted-foreground text-lg">You are already signed in to your KrishiMitra account.</p>
+                      </div>
+                      <Button onClick={handleDashboardRedirect} size="lg" className="h-14 px-10 rounded-full font-bold text-lg shadow-lg hover:scale-105 transition-all">
+                        {t.continueDashboard} <ArrowRight className="ml-2 h-5 w-5" />
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <div className="space-y-2">
+                        <h3 className="text-2xl font-bold font-headline text-foreground">{t.alreadyRegistered}</h3>
+                        <p className="text-muted-foreground text-lg">{t.accessTools}</p>
+                      </div>
+                      <Button onClick={() => router.push('/login')} variant="outline" size="lg" className="h-14 px-10 border-2 border-primary text-primary hover:bg-primary hover:text-white rounded-full font-bold text-lg shadow-md transition-all">
+                        {t.goDashboard} <ArrowRight className="ml-2 h-5 w-5" />
+                      </Button>
+                    </>
+                  )}
+                </div>
+              </Card>
             </div>
           </div>
         </section>

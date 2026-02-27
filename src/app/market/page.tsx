@@ -292,7 +292,7 @@ export default function MarketPage() {
                   <div className="flex items-center justify-between py-3 border-y border-dashed">
                     <div>
                       <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-0.5">Price</p>
-                      <p className="text-2xl font-black text-primary tracking-tight">₹{product.price}<span className="text-xs font-normal text-muted-foreground ml-1">/ {product.unit}</span></p>
+                      <p className="text-2xl font-black text-primary tracking-tight">Rs{product.price}<span className="text-xs font-normal text-muted-foreground ml-1">/ {product.unit}</span></p>
                     </div>
                     <div className="text-right">
                       <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-0.5">Quantity</p>

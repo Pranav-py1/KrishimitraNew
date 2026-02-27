@@ -132,7 +132,7 @@ export default function ConsumerDashboard() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-black text-xl text-primary tracking-tight">₹{purchase.totalPrice}</p>
+                        <p className="font-black text-xl text-primary tracking-tight">Rs{purchase.totalPrice}</p>
                         <Badge variant="outline" className="mt-1 border-primary/20 text-[10px] text-primary font-bold bg-primary/5 uppercase">Completed</Badge>
                       </div>
                     </div>

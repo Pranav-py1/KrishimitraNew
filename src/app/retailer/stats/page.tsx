@@ -118,11 +118,11 @@ export default function RetailerStatsPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-            <span className="text-muted-foreground">₹</span>
+            <span className="text-muted-foreground">Rs</span>
           </CardHeader>
           <CardContent>
             {isLoadingSales ? <Loader2 className="h-6 w-6 animate-spin" /> :
-              <div className="text-2xl font-bold">₹{totalRevenue.toLocaleString()}</div>
+              <div className="text-2xl font-bold">Rs{totalRevenue.toLocaleString()}</div>
             }
           </CardContent>
         </Card>
@@ -159,7 +159,7 @@ export default function RetailerStatsPage() {
                 <BarChart data={chartData}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} />
                   <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
-                  <YAxis stroke="#888888" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `₹${value}`} />
+                  <YAxis stroke="#888888" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `Rs${value}`} />
                   <Tooltip
                     contentStyle={{
                       backgroundColor: 'hsl(var(--background))',
@@ -205,7 +205,7 @@ export default function RetailerStatsPage() {
                   </Pie>
                   <Tooltip 
                     contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
-                    formatter={(value: number) => `₹${value.toLocaleString()}`}
+                    formatter={(value: number) => `Rs${value.toLocaleString()}`}
                   />
                   <Legend />
                 </PieChart>

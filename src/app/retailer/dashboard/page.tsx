@@ -26,7 +26,7 @@ function ListingItem({ item }: { item: Machine | Product }) {
           </div>
         </div>
       </TableCell>
-      <TableCell className="text-right">₹{item.price.toLocaleString()}</TableCell>
+      <TableCell className="text-right">Rs{item.price.toLocaleString()}</TableCell>
       <TableCell className="text-right">
         {item.approved ? (
           <Badge variant="secondary" className="bg-green-100 text-green-800 border-green-200">
@@ -171,5 +171,3 @@ export default function RetailerDashboard() {
     </div>
   );
 }
-
-    

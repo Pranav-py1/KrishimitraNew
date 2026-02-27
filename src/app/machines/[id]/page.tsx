@@ -120,7 +120,7 @@ export default function MachineDetailPage() {
           </CardContent>
             <CardFooter className="bg-secondary/50 p-4 flex justify-end">
                 <p className="text-2xl font-bold text-primary">
-                    ₹{machine.price}
+                    Rs{machine.price}
                     <span className="text-base font-normal text-muted-foreground">/day</span>
                 </p>
             </CardFooter>

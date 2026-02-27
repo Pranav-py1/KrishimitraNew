@@ -150,7 +150,7 @@ export default function BookingsPage() {
       .filter((b) => b.type === 'Machine')
       .map(b => ({
           ...b,
-          costDisplay: `₹${b.totalCost.toLocaleString()}`
+          costDisplay: `Rs${b.totalCost.toLocaleString()}`
       }));
   }, [bookings]);
 

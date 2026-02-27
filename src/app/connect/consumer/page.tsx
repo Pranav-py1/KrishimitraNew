@@ -27,7 +27,7 @@ const sampleConsumers = [
     location: 'Nashik, Maharashtra',
     interestedIn: 'Vegetables, Fruits',
     dailyRequirement: '5–10 kg',
-    priceRange: '₹20–₹50 per kg'
+    priceRange: 'Rs20–Rs50 per kg'
   },
   { 
     id: '2',
@@ -35,7 +35,7 @@ const sampleConsumers = [
     location: 'Pune, Maharashtra',
     interestedIn: 'Leafy Vegetables, Tomatoes',
     dailyRequirement: '3–8 kg',
-    priceRange: '₹18–₹40 per kg'
+    priceRange: 'Rs18–Rs40 per kg'
   },
   { 
     id: '3',
@@ -43,7 +43,7 @@ const sampleConsumers = [
     location: 'Mumbai, Maharashtra',
     interestedIn: 'Onions, Potatoes, Fruits',
     dailyRequirement: '10–20 kg',
-    priceRange: '₹22–₹45 per kg'
+    priceRange: 'Rs22–Rs45 per kg'
   },
   { 
     id: '4',
@@ -51,7 +51,7 @@ const sampleConsumers = [
     location: 'Aurangabad, Maharashtra',
     interestedIn: 'Organic Vegetables',
     dailyRequirement: '2–6 kg',
-    priceRange: '₹30–₹60 per kg'
+    priceRange: 'Rs30–Rs60 per kg'
   },
   { 
     id: '5',
@@ -59,7 +59,7 @@ const sampleConsumers = [
     location: 'Thane, Maharashtra',
     interestedIn: 'Mixed Vegetables',
     dailyRequirement: '8–15 kg',
-    priceRange: '₹20–₹48 per kg'
+    priceRange: 'Rs20–Rs48 per kg'
   },
 ];
 

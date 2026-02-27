@@ -34,7 +34,7 @@ const bulkBuyers = [
     products: 'Vegetables, Fruits',
     weeklyQuantity: '150–300 kg',
     monthlyQuantity: 'approx. 1.2 Tons',
-    priceRange: '₹18–₹35 per kg',
+    priceRange: 'Rs18–Rs35 per kg',
     paymentTerms: '7-Day Credit Cycle',
     contract: 'Monthly Rolling Contract',
     schedule: 'Early Morning (5 AM - 7 AM)'
@@ -48,7 +48,7 @@ const bulkBuyers = [
     products: 'Tomatoes, Onions, Leafy Vegetables',
     weeklyQuantity: '200–500 kg',
     monthlyQuantity: 'approx. 2 Tons',
-    priceRange: '₹20–₹38 per kg',
+    priceRange: 'Rs20–Rs38 per kg',
     paymentTerms: 'On-Delivery (Digital)',
     contract: 'Weekly Procurement',
     schedule: 'Daily Deliveries Preferred'
@@ -62,7 +62,7 @@ const bulkBuyers = [
     products: 'Potatoes, Mangoes, Onions',
     weeklyQuantity: '500kg – 2 Tons',
     monthlyQuantity: 'approx. 8-10 Tons',
-    priceRange: '₹15–₹30 per kg',
+    priceRange: 'Rs15–Rs30 per kg',
     paymentTerms: '15-Day Credit Cycle',
     contract: 'Annual Seasonal Contract',
     schedule: 'Bulk Loading Bay (24/7 Access)'
@@ -76,7 +76,7 @@ const bulkBuyers = [
     products: 'Mixed Vegetables',
     weeklyQuantity: '300–700 kg per event',
     monthlyQuantity: 'Variable (Event-based)',
-    priceRange: '₹22–₹40 per kg',
+    priceRange: 'Rs22–Rs40 per kg',
     paymentTerms: 'Advance + Post-Event Balance',
     contract: 'Event-by-Event Basis',
     schedule: 'Afternoon Deliveries'

@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -35,7 +34,7 @@ const summaryStats = [
   { title: 'Total Products', value: '42', icon: Package, color: 'text-blue-600', bg: 'bg-blue-100' },
   { title: 'Active Orders', value: '18', icon: ShoppingCart, color: 'text-orange-600', bg: 'bg-orange-100' },
   { title: 'Nearby Farmers', value: '156', icon: Users, color: 'text-green-600', bg: 'bg-green-100' },
-  { title: 'Total Revenue', value: '₹4.2L', icon: IndianRupee, color: 'text-purple-600', bg: 'bg-purple-100' },
+  { title: 'Total Revenue', value: 'Rs4.2L', icon: IndianRupee, color: 'text-purple-600', bg: 'bg-purple-100' },
 ];
 
 const nearbyCompanies = [
@@ -45,17 +44,17 @@ const nearbyCompanies = [
 ];
 
 const supplierProducts = [
-  { id: 1, name: 'Hybrid Cotton Seeds', category: 'Seeds', price: '₹1200/bag', stock: '50 Bags', location: 'Pune', status: 'Active' },
-  { id: 2, name: 'NPK 19:19:19', category: 'Fertilizers', price: '₹850/bag', stock: '120 Bags', location: 'Nashik', status: 'Active' },
-  { id: 3, name: 'Neem-based Pesticide', category: 'Pesticides', price: '₹450/L', stock: '30 Litres', location: 'Nagpur', status: 'Inactive' },
-  { id: 4, name: 'Heavy Duty Plough', category: 'Tools & Equipment', price: '₹15,000', stock: '5 Units', location: 'Solapur', status: 'Active' },
-  { id: 5, name: 'Organic Compost', category: 'Organic Products', price: '₹300/kg', stock: '500 kg', location: 'Satara', status: 'Active' },
+  { id: 1, name: 'Hybrid Cotton Seeds', category: 'Seeds', price: 'Rs1200/bag', stock: '50 Bags', location: 'Pune', status: 'Active' },
+  { id: 2, name: 'NPK 19:19:19', category: 'Fertilizers', price: 'Rs850/bag', stock: '120 Bags', location: 'Nashik', status: 'Active' },
+  { id: 3, name: 'Neem-based Pesticide', category: 'Pesticides', price: 'Rs450/L', stock: '30 Litres', location: 'Nagpur', status: 'Inactive' },
+  { id: 4, name: 'Heavy Duty Plough', category: 'Tools & Equipment', price: 'Rs15,000', stock: '5 Units', location: 'Solapur', status: 'Active' },
+  { id: 5, name: 'Organic Compost', category: 'Organic Products', price: 'Rs300/kg', stock: '500 kg', location: 'Satara', status: 'Active' },
 ];
 
 const farmerRequests = [
-  { farmer: 'Suresh Patil', product: 'Wheat Seeds', qty: '10 Bags', location: 'Nashik', price: '₹1000/bag' },
-  { farmer: 'Anil Deshmukh', product: 'Drip Irrigation Kit', qty: '2 Sets', location: 'Pune', price: '₹25,000' },
-  { farmer: 'Sunita Pawar', product: 'Organic Fertilizer', qty: '200 kg', location: 'Sangli', price: '₹250/kg' },
+  { farmer: 'Suresh Patil', product: 'Wheat Seeds', qty: '10 Bags', location: 'Nashik', price: 'Rs1000/bag' },
+  { farmer: 'Anil Deshmukh', product: 'Drip Irrigation Kit', qty: '2 Sets', location: 'Pune', price: 'Rs25,000' },
+  { farmer: 'Sunita Pawar', product: 'Organic Fertilizer', qty: '200 kg', location: 'Sangli', price: 'Rs250/kg' },
 ];
 
 const topSelling = [

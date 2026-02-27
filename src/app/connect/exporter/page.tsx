@@ -31,7 +31,7 @@ const bulkBuyers = [
     location: 'Pune, Maharashtra',
     products: 'Vegetables, Fruits',
     quantity: '150–300 kg per week',
-    priceRange: '₹18–₹35 per kg'
+    priceRange: 'Rs18–Rs35 per kg'
   },
   { 
     id: 'freshbite-restaurant',
@@ -41,7 +41,7 @@ const bulkBuyers = [
     location: 'Mumbai, Maharashtra',
     products: 'Tomatoes, Onions, Leafy Vegetables',
     quantity: '200–500 kg per week',
-    priceRange: '₹20–₹38 per kg'
+    priceRange: 'Rs20–Rs38 per kg'
   },
   { 
     id: 'agrofresh-factory',
@@ -51,7 +51,7 @@ const bulkBuyers = [
     location: 'Nashik, Maharashtra',
     products: 'Potatoes, Mangoes, Onions',
     quantity: '500kg – 2 Tons per order',
-    priceRange: '₹15–₹30 per kg'
+    priceRange: 'Rs15–Rs30 per kg'
   },
   { 
     id: 'royal-catering',
@@ -61,7 +61,7 @@ const bulkBuyers = [
     location: 'Thane, Maharashtra',
     products: 'Mixed Vegetables',
     quantity: '300–700 kg per event',
-    priceRange: '₹22–₹40 per kg'
+    priceRange: 'Rs22–Rs40 per kg'
   },
 ];
 

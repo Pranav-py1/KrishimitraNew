@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -33,20 +32,20 @@ const stats = [
   { title: 'Total Orders', value: '124', icon: Package, color: 'text-blue-600', bg: 'bg-blue-100' },
   { title: 'Buying Requests', value: '12', icon: ClipboardList, color: 'text-green-600', bg: 'bg-green-100' },
   { title: 'Regions Covered', value: '8', icon: Globe, color: 'text-orange-600', bg: 'bg-orange-100' },
-  { title: 'Payments Processed', value: '₹12.4L', icon: CreditCard, color: 'text-purple-600', bg: 'bg-purple-100' },
+  { title: 'Payments Processed', value: 'Rs12.4L', icon: CreditCard, color: 'text-purple-600', bg: 'bg-purple-100' },
 ];
 
 const buyingRequirements = [
-  { id: 1, product: 'Wheat', category: 'Grains', price: '₹25/kg', qty: '5 Tons', quality: 'Grade A', region: 'Maharashtra', status: 'Open', type: 'Processing Company' },
-  { id: 2, product: 'Onion', category: 'Vegetables', price: '₹18/kg', qty: '10 Tons', quality: 'Export Quality', region: 'Nashik', status: 'Open', type: 'Export Firm' },
-  { id: 3, product: 'Mangoes', category: 'Fruits', price: '₹800/box', qty: '500 Boxes', quality: 'Alphonso', region: 'Ratnagiri', status: 'Urgent', type: 'Retail Chain' },
-  { id: 4, product: 'Turmeric', category: 'Spices', price: '₹120/kg', qty: '2 Tons', quality: 'High Curcumin', region: 'Sangli', status: 'Closed', type: 'Exporter' },
+  { id: 1, product: 'Wheat', category: 'Grains', price: 'Rs25/kg', qty: '5 Tons', quality: 'Grade A', region: 'Maharashtra', status: 'Open', type: 'Processing Company' },
+  { id: 2, product: 'Onion', category: 'Vegetables', price: 'Rs18/kg', qty: '10 Tons', quality: 'Export Quality', region: 'Nashik', status: 'Open', type: 'Export Firm' },
+  { id: 3, product: 'Mangoes', category: 'Fruits', price: 'Rs800/box', qty: '500 Boxes', quality: 'Alphonso', region: 'Ratnagiri', status: 'Urgent', type: 'Retail Chain' },
+  { id: 4, product: 'Turmeric', category: 'Spices', price: 'Rs120/kg', qty: '2 Tons', quality: 'High Curcumin', region: 'Sangli', status: 'Closed', type: 'Exporter' },
 ];
 
 const orders = [
-  { id: 'ORD-001', farmer: 'Sanjay Patil', product: 'Wheat', qty: '2 Tons', price: '₹50,000', status: 'Accepted', payment: 'Pending' },
-  { id: 'ORD-002', farmer: 'Sunita Pawar', product: 'Onions', qty: '5 Tons', price: '₹90,000', status: 'Pending', payment: 'Unpaid' },
-  { id: 'ORD-003', farmer: 'Rahul Deshmukh', product: 'Mangoes', qty: '100 Boxes', price: '₹80,000', status: 'Completed', payment: 'Completed' },
+  { id: 'ORD-001', farmer: 'Sanjay Patil', product: 'Wheat', qty: '2 Tons', price: 'Rs50,000', status: 'Accepted', payment: 'Pending' },
+  { id: 'ORD-002', farmer: 'Sunita Pawar', product: 'Onions', qty: '5 Tons', price: 'Rs90,000', status: 'Pending', payment: 'Unpaid' },
+  { id: 'ORD-003', farmer: 'Rahul Deshmukh', product: 'Mangoes', qty: '100 Boxes', price: 'Rs80,000', status: 'Completed', payment: 'Completed' },
 ];
 
 const buyerNetwork = [
@@ -157,7 +156,7 @@ export default function ExporterDashboard() {
                   </div>
                   <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10">
                     <p className="text-[10px] font-black uppercase text-white/60 mb-1">Max Price</p>
-                    <p className="font-bold text-lg">₹800/box</p>
+                    <p className="font-bold text-lg">Rs800/box</p>
                   </div>
                 </div>
               </div>

@@ -48,11 +48,11 @@ const companies = [
 ];
 
 const sampleProducts = [
-  { id: 1, name: 'Premium Pesticide X', category: 'pesticides', desc: 'High efficiency pest control for cotton and grains.', price: '₹1,250' },
-  { id: 2, name: 'Hybrid Seeds V2', category: 'seeds', desc: 'Drought resistant hybrid seeds for high yield.', price: '₹850' },
-  { id: 3, name: 'NPK Fertilizer 19:19:19', category: 'fertilizers', desc: 'Water soluble fertilizer for faster crop growth.', price: '₹450' },
-  { id: 4, name: 'Power Tiller M1', category: 'equipment', desc: 'Versatile small farm machine for multi-purpose soil prep.', price: '₹45,000' },
-  { id: 5, name: 'Organic Soil Enhancer', category: 'other', desc: 'Bio-stimulant for improving soil microbiology.', price: '₹600' },
+  { id: 1, name: 'Premium Pesticide X', category: 'pesticides', desc: 'High efficiency pest control for cotton and grains.', price: 'Rs1,250' },
+  { id: 2, name: 'Hybrid Seeds V2', category: 'seeds', desc: 'Drought resistant hybrid seeds for high yield.', price: 'Rs850' },
+  { id: 3, name: 'NPK Fertilizer 19:19:19', category: 'fertilizers', desc: 'Water soluble fertilizer for faster crop growth.', price: 'Rs450' },
+  { id: 4, name: 'Power Tiller M1', category: 'equipment', desc: 'Versatile small farm machine for multi-purpose soil prep.', price: 'Rs45,000' },
+  { id: 5, name: 'Organic Soil Enhancer', category: 'other', desc: 'Bio-stimulant for improving soil microbiology.', price: 'Rs600' },
 ];
 
 export default function CompanyDetailPage() {

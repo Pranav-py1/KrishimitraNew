@@ -31,7 +31,7 @@ const sampleConsumers = [
     interestedIn: 'Vegetables, Fruits',
     dailyRequirement: '5–10 kg',
     weeklyRequirement: 'approx. 40–50 kg',
-    priceRange: '₹20–₹50 per kg',
+    priceRange: 'Rs20–Rs50 per kg',
     preferredTime: '7:00 AM – 9:00 AM',
     contact: '+91 98765 00001'
   },
@@ -43,7 +43,7 @@ const sampleConsumers = [
     interestedIn: 'Leafy Vegetables, Tomatoes',
     dailyRequirement: '3–8 kg',
     weeklyRequirement: 'approx. 20–30 kg',
-    priceRange: '₹18–₹40 per kg',
+    priceRange: 'Rs18–Rs40 per kg',
     preferredTime: '8:00 AM – 10:00 AM',
     contact: '+91 98765 00002'
   },
@@ -55,7 +55,7 @@ const sampleConsumers = [
     interestedIn: 'Onions, Potatoes, Fruits',
     dailyRequirement: '10–20 kg',
     weeklyRequirement: 'approx. 80–100 kg',
-    priceRange: '₹22–₹45 per kg',
+    priceRange: 'Rs22–Rs45 per kg',
     preferredTime: '6:00 AM – 8:00 AM',
     contact: '+91 98765 00003'
   },
@@ -67,7 +67,7 @@ const sampleConsumers = [
     interestedIn: 'Organic Vegetables',
     dailyRequirement: '2–6 kg',
     weeklyRequirement: 'approx. 15–20 kg',
-    priceRange: '₹30–₹60 per kg',
+    priceRange: 'Rs30–Rs60 per kg',
     preferredTime: 'Morning or Evening',
     contact: '+91 98765 00004'
   },
@@ -79,7 +79,7 @@ const sampleConsumers = [
     interestedIn: 'Mixed Vegetables',
     dailyRequirement: '8–15 kg',
     weeklyRequirement: 'approx. 50–60 kg',
-    priceRange: '₹20–₹48 per kg',
+    priceRange: 'Rs20–Rs48 per kg',
     preferredTime: 'Flexible',
     contact: '+91 98765 00005'
   },

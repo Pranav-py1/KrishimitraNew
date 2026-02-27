@@ -164,7 +164,7 @@ export default function AddMachinePage() {
                 name="price"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Price per Day (₹)</FormLabel>
+                    <FormLabel>Price per Day (Rs)</FormLabel>
                     <FormControl>
                       <Input type="number" placeholder="e.g., 2000" {...field} />
                     </FormControl>

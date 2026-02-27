@@ -167,7 +167,7 @@ export default function FarmerLivestockPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="price">Price (₹)</Label>
+                    <Label htmlFor="price">Price (Rs)</Label>
                     <Input 
                       id="price" 
                       type="number" 
@@ -251,7 +251,7 @@ export default function FarmerLivestockPage() {
                           </div>
                         </div>
                         <div className="text-right">
-                          <p className="text-2xl font-black text-primary">₹{listing.price}</p>
+                          <p className="text-2xl font-black text-primary">Rs{listing.price}</p>
                           <p className="text-xs text-muted-foreground">Qty: {listing.quantity}</p>
                         </div>
                       </div>

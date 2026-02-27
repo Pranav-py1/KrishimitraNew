@@ -36,7 +36,7 @@ const experts = [
     specialization: 'Soil & Crop Management',
     experience: '12 Years',
     location: 'Nashik',
-    fee: '₹1500 per visit'
+    fee: 'Rs1500 per visit'
   },
   { 
     id: '2',
@@ -44,7 +44,7 @@ const experts = [
     specialization: 'Organic Farming',
     experience: '8 Years',
     location: 'Pune',
-    fee: '₹1200 per visit'
+    fee: 'Rs1200 per visit'
   },
   { 
     id: '3',
@@ -52,7 +52,7 @@ const experts = [
     specialization: 'Irrigation Systems',
     experience: '10 Years',
     location: 'Aurangabad',
-    fee: '₹1400 per visit'
+    fee: 'Rs1400 per visit'
   },
 ];
 

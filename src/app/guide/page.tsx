@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -127,9 +126,9 @@ const cropData = [
     },
     sales: {
       markets: { en: 'Kolhapur, Pune, Solapur, Sangli', mr: 'कोल्हापूर, पुणे, सोलापूर, सांगली' },
-      value: '₹42,500 Crores',
+      value: 'Rs42,500 Crores',
       share: '35.2%',
-      description: { en: 'Sugarcane sales are primarily handled through the sugar factory cooperative network across the state.', mr: 'उसाची विक्री प्रामुख्याने राज्यातील साखर कारखाना सहकारी नेटवर्कद्वारे हाताळली जाते.' },
+      description: { en: 'Sugarcane sales are primarily handled through the sugar factory cooperative network across the state.', mr: 'उसाची विक्री प्रामुक्षाने राज्यातील साखर कारखाना सहकारी नेटवर्कद्वारे हाताळली जाते.' },
       chart: [
         { name: 'Kolhapur', value: 28.5 },
         { name: 'Sangli', value: 20.2 },
@@ -172,7 +171,7 @@ const cropData = [
     },
     sales: {
       markets: { en: 'Lasalgaon (Nashik), Pune, Solapur, Mumbai', mr: 'लासलगाव (नाशिक), पुणे, सोलापूर, मुंबई' },
-      value: '₹18,200 Crores',
+      value: 'Rs18,200 Crores',
       share: '48.5%',
       description: { en: 'Lasalgaon in Nashik is Asia\'s largest onion market, dictating prices across the country.', mr: 'नाशिकमधील लासलगाव ही आशियातील सर्वात मोठी कांदा बाजारपेठ आहे, जो देशभरातील भाव ठरवते.' },
       chart: [
@@ -218,7 +217,7 @@ const cropData = [
     },
     sales: {
       markets: { en: 'Akola, Jalgaon, Nagpur, Yavatmal', mr: 'अकोला, जळगाव, नागपूर, यवतमाळ' },
-      value: '₹12,800 Crores',
+      value: 'Rs12,800 Crores',
       share: '22.1%',
       description: { en: 'Cotton sales are driven by industrial demand from textile hubs across western India.', mr: 'देशभरातील कापड केंद्रांकडून औद्योगिक मागणीमुळे कापसाच्या विक्रीला चालना मिळते.' },
       chart: [
@@ -263,7 +262,7 @@ const cropData = [
     },
     sales: {
       markets: { en: 'Latur, Nanded, Akola, Nagpur', mr: 'लातूर, नांदेड, अकोला, नागपूर' },
-      value: '₹15,400 Crores',
+      value: 'Rs15,400 Crores',
       share: '31.2%',
       description: { en: 'Latur is a major trading hub for Soybean, processing it for oil and animal feed.', mr: 'लातूर हे सोयाबीनचे प्रमुख व्यापारी केंद्र असून तेथे तेल आणि पशुखाद्यासाठी प्रक्रिया केली जाते.' },
       chart: [
@@ -308,7 +307,7 @@ const cropData = [
     },
     sales: {
       markets: { en: 'Nashik, Pune, Mumbai (Exports), Sangli', mr: 'नाशिक, पुणे, मुंबई (निर्यात), सांगली' },
-      value: '₹9,800 Crores',
+      value: 'Rs9,800 Crores',
       share: '85.5%',
       description: { en: 'A large percentage of Nashik grapes are exported globally, especially to Europe.', mr: 'नाशिकच्या द्राक्षांची मोठी टक्केवारी जागतिक स्तरावर, विशेषतः युरोपमध्ये निर्यात केली जाते.' },
       chart: [
@@ -353,7 +352,7 @@ const cropData = [
     },
     sales: {
       markets: { en: 'Solapur, Nashik, Mumbai, Export Hubs', mr: 'सोलापूर, नाशिक, मुंबई, निर्यात केंद्र' },
-      value: '₹6,400 Crores',
+      value: 'Rs6,400 Crores',
       share: '78.2%',
       description: { en: 'Large quantities are exported to Middle East and European markets.', mr: 'मोठ्या प्रमाणावर आखाती देश और युरोपियन बाजारपेठांमध्ये निर्यात केली जाते.' },
       chart: [
@@ -398,7 +397,7 @@ const cropData = [
     },
     sales: {
       markets: { en: 'Sangli (Major Hub), Hingoli, Mumbai', mr: 'सांगली (प्रमुख केंद्र), हिंगोली, मुंबई' },
-      value: '₹4,200 Crores',
+      value: 'Rs4,200 Crores',
       share: '22.1%',
       description: { en: 'Sangli market yard dictates the price of turmeric across South Asia.', mr: 'सांगली मार्केट यार्ड दक्षिण आशियातील हळदीचे भाव ठरवते.' },
       chart: [
@@ -443,7 +442,7 @@ const cropData = [
     },
     sales: {
       markets: { en: 'Mumbai (Vashi), Pune, Exports (USA, Europe)', mr: 'मुंबई (वाशी), पुणे, निर्यात (अमेरिका, युरोप)' },
-      value: '₹5,800 Crores',
+      value: 'Rs5,800 Crores',
       share: '15.5%',
       description: { en: 'Export markets fetch premium prices for high-quality Konkan Alphonso.', mr: 'उच्च दर्जाच्या कोकण हापूससाठी निर्यात बाजारपेठेत प्रीमियम भाव मिळतो.' },
       chart: [
@@ -488,7 +487,7 @@ const cropData = [
     },
     sales: {
       markets: { en: 'Bhandara, Gondia, Mumbai (Raigad supply), Panvel', mr: 'भंडारा, गोंदिया, मुंबई (रायगड पुरवठा), पनवेल' },
-      value: '₹12,200 Crores',
+      value: 'Rs12,200 Crores',
       share: '4.5%',
       description: { en: 'Vidarbha rice markets are major hubs for trading long-grain varieties.', mr: 'विदर्भातील भात बाजारपेठा लांब दाण्याच्या जातींच्या व्यापारासाठी मोठी केंद्रे आहेत.' },
       chart: [
@@ -509,8 +508,8 @@ const cropData = [
         { en: 'Use Urea Briquettes for deep placement in Konkan region.', mr: 'कोकणात खोलवर खत देण्यासाठी युरिया ब्रिकेट्सचा वापर करा.' }
       ],
       pests: [
-        { en: 'Stem Borer: Causes white ear heads. Use Cartap Hydrochloride.', mr: 'खोडकिडा: पांढरी लोंबी येण्यास कारणीभूत. कार्टाप हायड्रोक्लोराईड वापरा.' },
-        { en: 'Rice Blast: Fungal spots on leaves. Monitor during cloudy weather.', mr: 'करपा (ब्लास्ट): पानांवर बुरशीजन्य ठिपके. ढगाळ हवामानात लक्ष ठेवा.' }
+        { en: 'Rice Blast: Fungal spots on leaves. Monitor during cloudy weather.', mr: 'करपा (ब्लास्ट): पानांवर बुरशीजन्य ठिपके. ढगाळ हवामानात लक्ष ठेवा.' },
+        { en: 'Stem Borer: Causes white ear heads. Use Cartap Hydrochloride.', mr: 'खोडकिडा: पांढरी लोंबी येण्यास कारणीभूत. कार्टाप हायड्रोक्लोराईड वापरा.' }
       ]
     }
   },
@@ -533,7 +532,7 @@ const cropData = [
     },
     sales: {
       markets: { en: 'Solapur, Sangli, Pune, Latur', mr: 'सोलापूर, सांगली, पुणे, लातूर' },
-      value: '₹3,200 Crores',
+      value: 'Rs3,200 Crores',
       share: '25.2%',
       description: { en: 'Solapur is the largest trading hub for Jowar in the state.', mr: 'सोलापूर हे राज्यातील ज्वारीचे सर्वात मोठे व्यापारी केंद्र आहे.' },
       chart: [
@@ -578,7 +577,7 @@ const cropData = [
     },
     sales: {
       markets: { en: 'Ahmednagar, Nashik, Jalgaon, Dhule', mr: 'अहमदनगर, नाशिक, जळगाव, धुळे' },
-      value: '₹1,800 Crores',
+      value: 'Rs1,800 Crores',
       share: '15.2%',
       description: { en: 'Regional markets in Ahmednagar and Nashik drive the trade for Bajra.', mr: 'अहमदनगर आणि नाशिकमधील प्रादेशिक बाजारपेठा बाजरीच्या व्यापाराला चालना देतात.' },
       chart: [
@@ -623,7 +622,7 @@ const cropData = [
     },
     sales: {
       markets: { en: 'Pune, Nashik, Nagpur, Aurangabad', mr: 'पुणे, नाशिक, नागपूर, औरंगाबाद' },
-      value: '₹4,500 Crores',
+      value: 'Rs4,500 Crores',
       share: '2.1%',
       description: { en: 'Pune and Nashik are primary demand centers for local wheat varieties.', mr: 'पुणे आणि नाशिक ही स्थानिक गव्हाच्या जातींसाठी प्रमुख मागणी केंद्रे आहेत.' },
       chart: [
@@ -668,7 +667,7 @@ const cropData = [
     },
     sales: {
       markets: { en: 'Latur, Pune, Solapur, Akola', mr: 'लातूर, पुणे, सोलापूर, अकोला' },
-      value: '₹6,800 Crores',
+      value: 'Rs6,800 Crores',
       share: '20.1%',
       description: { en: 'Latur market is a major hub for trading Gram and other pulses.', mr: 'लातूर ही हरभरा आणि इतर कडधान्यांच्या व्यापारासाठी मोठी बाजारपेठ आहे.' },
       chart: [
@@ -713,7 +712,7 @@ const cropData = [
     },
     sales: {
       markets: { en: 'Jalgaon (Major Hub), Mumbai, Pune, Exports', mr: 'जळगाव (प्रमुख केंद्र), मुंबई, पुणे, निर्यात' },
-      value: '₹12,500 Crores',
+      value: 'Rs12,500 Crores',
       share: '18.2%',
       description: { en: 'High-quality Grand Naine bananas from Jalgaon are sold across India and Gulf countries.', mr: 'जळगावमधील ग्रँड नैन जातीच्या उच्च दर्जाच्या केळींची भारतभर आणि आखाती देशांत विक्री होते.' },
       chart: [

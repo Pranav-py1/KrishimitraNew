@@ -40,7 +40,7 @@ function ListingCard({ item, type, onApprove, onReject }: { item: Machine | Prod
       </CardHeader>
       <CardContent>
         <p className="text-sm text-muted-foreground">{item.description}</p>
-        <p className="mt-4 text-lg font-bold text-primary">₹{item.price}</p>
+        <p className="mt-4 text-lg font-bold text-primary">Rs{item.price}</p>
       </CardContent>
       <CardFooter className="flex justify-end gap-2">
         <Button variant="outline" size="sm" onClick={handleReject} disabled={isActing}>

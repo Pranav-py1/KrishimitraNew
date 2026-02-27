@@ -2,16 +2,16 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
-import { useUser } from '@/firebase';
 import { useEffect, useState } from 'react';
 import { Loader2, ShieldAlert } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { RoleDashboards } from './dashboard-views';
+import { useRole } from '@/components/role-context';
 
 export default function DynamicDashboardPage() {
   const { role } = useParams();
-  const { user, userData, isUserLoading, isUserDataLoading } = useUser();
+  const { role: activeRole, isLoading } = useRole();
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
 
@@ -20,28 +20,22 @@ export default function DynamicDashboardPage() {
   }, []);
 
   useEffect(() => {
-    if (!mounted || isUserLoading || isUserDataLoading) return;
+    if (!mounted || isLoading) return;
 
-    if (!user) {
-      router.push('/login');
+    if (!activeRole) {
+      router.push('/');
       return;
     }
 
-    if (userData?.role) {
-      const normalizedUserRole = userData.role.trim().toLowerCase().replace('_', '-');
-      const normalizedUrlRole = typeof role === 'string' ? role.trim().toLowerCase() : '';
+    const normalizedActiveRole = activeRole.replace('_', '-');
+    const urlRole = typeof role === 'string' ? role.toLowerCase() : '';
 
-      const isBusinessGroup = ['exporter', 'supplier'].includes(normalizedUserRole);
-      const isBusinessUrl = ['exporter', 'supplier'].includes(normalizedUrlRole);
-
-      // Redirect if user is on the wrong dashboard role URL
-      if (normalizedUserRole !== normalizedUrlRole && !(isBusinessGroup && isBusinessUrl)) {
-        router.push(`/dashboard/${normalizedUserRole}`);
-      }
+    if (normalizedActiveRole !== urlRole) {
+      router.push(`/dashboard/${normalizedActiveRole}`);
     }
-  }, [user, userData, isUserLoading, isUserDataLoading, role, router, mounted]);
+  }, [activeRole, isLoading, role, router, mounted]);
 
-  if (!mounted || isUserLoading || isUserDataLoading) {
+  if (!mounted || isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
         <Loader2 className="h-16 w-16 animate-spin text-primary" />
@@ -49,24 +43,9 @@ export default function DynamicDashboardPage() {
     );
   }
 
-  if (!user) return null;
+  if (!activeRole) return null;
 
-  if (!userData?.role) {
-    return (
-      <div className="container mx-auto px-4 py-20 text-center">
-        <ShieldAlert className="h-16 w-16 text-destructive mx-auto mb-6" />
-        <h1 className="text-3xl font-bold font-headline mb-4">Profile Incomplete</h1>
-        <p className="text-muted-foreground text-lg max-w-md mx-auto mb-8">
-          We couldn't find a valid role associated with your account.
-        </p>
-        <Button asChild>
-          <Link href="/register">Complete Registration</Link>
-        </Button>
-      </div>
-    );
-  }
-
-  const normalizedRole = userData.role.trim().toLowerCase();
+  const normalizedRole = activeRole.trim().toLowerCase();
   const DashboardComponent = RoleDashboards[normalizedRole];
 
   if (DashboardComponent) {
@@ -75,10 +54,13 @@ export default function DynamicDashboardPage() {
 
   return (
     <div className="container mx-auto px-4 py-20 text-center">
-      <h1 className="text-3xl font-bold font-headline mb-4">Welcome, {userData.name}</h1>
+      <h1 className="text-3xl font-bold font-headline mb-4">Welcome to KrishiMitra</h1>
       <p className="text-muted-foreground text-lg max-w-md mx-auto">
-        Your specialized dashboard for <strong>{userData.role}</strong> is currently under development.
+        Your specialized dashboard for <strong>{activeRole}</strong> is currently under development.
       </p>
+      <Button asChild className="mt-8">
+        <Link href="/">Back to Home</Link>
+      </Button>
     </div>
   );
 }

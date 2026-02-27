@@ -14,6 +14,7 @@ import {
   BookOpen,
   Loader2,
   CheckCircle2,
+  ShoppingBag,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -38,6 +39,7 @@ const translations = {
       { id: 'farmer', title: 'Farmer', description: 'Maximize your yield and connect directly with markets.', icon: Wheat },
       { id: 'exporter', title: 'Exporter', description: 'Purchase products in bulk and distribute to international markets.', icon: Truck },
       { id: 'supplier', title: 'Supplier', description: 'Provide essential inputs like seeds and tools to farmers.', icon: Store },
+      { id: 'consumer', title: 'Consumer', description: 'Purchase fresh agricultural produce directly from farmers for daily or bulk needs.', icon: ShoppingBag },
     ]
   },
   mr: {
@@ -50,6 +52,7 @@ const translations = {
       { id: 'farmer', title: 'शेतकरी', description: 'तुमचे उत्पादन वाढवा आणि थेट बाजारपेठेशी जोडा.', icon: Wheat },
       { id: 'exporter', title: 'निर्यातदार', description: 'मोठ्या प्रमाणात माल खरेदी करा आणि आंतरराष्ट्रीय बाजारात विक्री करा.', icon: Truck },
       { id: 'supplier', title: 'पुरवठादार', description: 'शेतकऱ्यांना बियाणे आणि अवजारे यांसारख्या निविष्ठा पुरवा.', icon: Store },
+      { id: 'consumer', title: 'ग्राहक', description: 'दैनंदिन किंवा मोठ्या गरजांसाठी थेट शेतकऱ्यांकडून ताजी कृषी उत्पादने खरेदी करा.', icon: ShoppingBag },
     ]
   }
 };
@@ -110,7 +113,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
               {t.roles.map((role) => {
                 const Icon = role.icon;
                 const isSelected = currentRole === role.id;
@@ -142,7 +145,7 @@ export default function Home() {
                     <div className="w-full pb-10 px-8">
                       <Button className={cn(
                         "w-full h-12 rounded-2xl shadow-lg transition-all font-bold",
-                        isSelected ? t.continueAs : t.selectRole
+                        isSelected ? "bg-primary text-primary-foreground" : ""
                       )}>
                         {isSelected ? t.continueAs : t.selectRole} <ArrowRight className="ml-2 h-4 w-4" />
                       </Button>

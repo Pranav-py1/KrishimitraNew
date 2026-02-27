@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 
-export type UserRole = 'farmer' | 'exporter' | 'supplier' | 'admin';
+export type UserRole = 'farmer' | 'exporter' | 'supplier' | 'admin' | 'consumer';
 
 interface RoleContextType {
   role: UserRole | null;
@@ -22,7 +22,7 @@ export function RoleProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const savedRole = localStorage.getItem('krishimitra-role') as UserRole;
-    if (savedRole && ['farmer', 'exporter', 'supplier', 'admin'].includes(savedRole)) {
+    if (savedRole && ['farmer', 'exporter', 'supplier', 'admin', 'consumer'].includes(savedRole)) {
       setRoleState(savedRole);
     } else {
       localStorage.removeItem('krishimitra-role');

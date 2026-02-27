@@ -54,6 +54,7 @@ const translations = {
       exporter: 'Exporter',
       supplier: 'Supplier',
       admin: 'Admin',
+      consumer: 'Consumer',
     }
   },
   mr: {
@@ -71,6 +72,7 @@ const translations = {
       exporter: 'निर्यातदार',
       supplier: 'पुरवठादार',
       admin: 'अ‍ॅडमिन',
+      consumer: 'ग्राहक',
     }
   }
 };

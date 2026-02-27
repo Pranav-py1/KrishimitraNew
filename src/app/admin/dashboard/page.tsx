@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useUser, useFirestore, useDoc, useMemoFirebase, useCollection, updateDocumentNonBlocking, deleteDocumentNonBlocking } from '@/firebase';
+import { useState } from 'react';
+import { useFirestore, useMemoFirebase, useCollection, updateDocumentNonBlocking, deleteDocumentNonBlocking, useUser } from '@/firebase';
 import { doc, query, collection, where } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, ShieldCheck, CheckCircle, XCircle } from 'lucide-react';
@@ -64,7 +63,7 @@ function ListingsGrid({ items, type, onUpdate }: { items: any[] | null; type: 'm
   const handleApprove = async (itemId: string) => {
     const itemRef = doc(firestore, type === 'machine' ? 'machines' : 'products', itemId);
     try {
-      await updateDocumentNonBlocking(itemRef, { approved: true });
+      updateDocumentNonBlocking(itemRef, { approved: true });
       toast({ title: 'Listing Approved', description: `The ${type} has been approved and is now live.` });
       onUpdate();
     } catch {
@@ -75,7 +74,7 @@ function ListingsGrid({ items, type, onUpdate }: { items: any[] | null; type: 'm
   const handleReject = async (itemId: string) => {
     const itemRef = doc(firestore, type === 'machine' ? 'machines' : 'products', itemId);
     try {
-      await deleteDocumentNonBlocking(itemRef);
+      deleteDocumentNonBlocking(itemRef);
       toast({ title: 'Listing Rejected', description: `The ${type} has been removed.` });
       onUpdate();
     } catch {
@@ -104,13 +103,8 @@ function ListingsGrid({ items, type, onUpdate }: { items: any[] | null; type: 'm
 
 
 export default function AdminDashboardPage() {
-  const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
-  const router = useRouter();
-  const { toast } = useToast();
-
-  const userDocRef = useMemoFirebase(() => (user ? doc(firestore, 'users', user.uid) : null), [user, firestore]);
-  const { data: userData, isLoading: isUserDataLoading } = useDoc(userDocRef);
+  const { isUserLoading } = useUser();
 
   const unapprovedMachinesQuery = useMemoFirebase(() => query(collection(firestore, 'machines'), where('approved', '==', false)), [firestore]);
   const { data: unapprovedMachines, isLoading: isLoadingMachines, error: machinesError, forceRefetch: refetchMachines } = useCollection<Machine>(unapprovedMachinesQuery);
@@ -118,25 +112,12 @@ export default function AdminDashboardPage() {
   const unapprovedProductsQuery = useMemoFirebase(() => query(collection(firestore, 'products'), where('approved', '==', false)), [firestore]);
   const { data: unapprovedProducts, isLoading: isLoadingProducts, error: productsError, forceRefetch: refetchProducts } = useCollection<Product>(unapprovedProductsQuery);
 
-
-  useEffect(() => {
-    const loading = isUserLoading || isUserDataLoading;
-    if (!loading && (!user || userData?.role !== 'admin')) {
-      toast({ variant: 'destructive', title: 'Access Denied', description: 'You must be an admin to access this page.' });
-      router.push('/');
-    }
-  }, [user, userData, isUserLoading, isUserDataLoading, router, toast]);
-
-  if (isUserLoading || isUserDataLoading || !userData) {
+  if (isUserLoading) {
     return (
       <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
         <Loader2 className="h-16 w-16 animate-spin text-primary" />
       </div>
     );
-  }
-  
-  if (userData.role !== 'admin') {
-      return null;
   }
 
   const handleUpdate = () => {
@@ -167,7 +148,7 @@ export default function AdminDashboardPage() {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="machines">
-          {(isLoadingMachines || isUserDataLoading) ? (
+          {(isLoadingMachines) ? (
             <div className="flex justify-center mt-8"><Loader2 className="h-8 w-8 animate-spin" /></div>
           ) : (
             <ListingsGrid items={unapprovedMachines} type="machine" onUpdate={handleUpdate} />
@@ -175,7 +156,7 @@ export default function AdminDashboardPage() {
            {machinesError && <p className="text-destructive text-center mt-4">Could not load machine listings.</p>}
         </TabsContent>
         <TabsContent value="products">
-          {(isLoadingProducts || isUserDataLoading) ? (
+          {(isLoadingProducts) ? (
             <div className="flex justify-center mt-8"><Loader2 className="h-8 w-8 animate-spin" /></div>
           ) : (
             <ListingsGrid items={unapprovedProducts} type="product" onUpdate={handleUpdate} />
@@ -186,5 +167,3 @@ export default function AdminDashboardPage() {
     </div>
   );
 }
-
-    

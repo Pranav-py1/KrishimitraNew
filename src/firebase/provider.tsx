@@ -1,7 +1,6 @@
-
 'use client';
 
-import React, { DependencyList, createContext, useContext, ReactNode, useMemo } from 'react';
+import React, { DependencyList, createContext, useContext, ReactNode, useMemo, useState, useEffect } from 'react';
 import { FirebaseApp } from 'firebase/app';
 import { Firestore } from 'firebase/firestore';
 import { Auth } from 'firebase/auth';
@@ -60,7 +59,45 @@ export function useMemoFirebase<T>(factory: () => T, deps: DependencyList): T {
   return useMemo(factory, deps);
 }
 
-// Minimal user hook for backward compatibility with Firestore components
+/**
+ * Enhanced mock user hook for the frontend-only prototype.
+ * Returns a mock profile based on the selected role in localStorage.
+ */
 export const useUser = () => {
-  return { user: null, userData: null, isUserLoading: false, isUserDataLoading: false, userError: null };
+  const [role, setRole] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const savedRole = localStorage.getItem('krishimitra-role');
+    setRole(savedRole);
+    setIsLoading(false);
+  }, []);
+
+  const user = role ? { 
+    uid: `mock-${role}-id`, 
+    displayName: role.charAt(0).toUpperCase() + role.slice(1),
+    email: `${role}@example.com` 
+  } : null;
+
+  const userData = role ? { 
+    name: user?.displayName, 
+    role: role,
+    phone: '+91 98765 43210',
+    preferredLanguage: 'English',
+    location: {
+      village: 'Kisanpur',
+      taluka: 'Agri-Taluka',
+      district: 'Green-District',
+      pincode: '400001',
+      address: 'Main Farm Road, Near Post Office'
+    }
+  } : null;
+
+  return { 
+    user, 
+    userData, 
+    isUserLoading: isLoading, 
+    isUserDataLoading: isLoading, 
+    userError: null 
+  };
 };

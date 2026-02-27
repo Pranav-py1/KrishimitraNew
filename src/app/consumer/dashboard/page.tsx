@@ -1,10 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useUser, useFirestore, useDoc, useMemoFirebase, useCollection } from '@/firebase';
-import { doc, query, collection, where } from 'firebase/firestore';
-import { useToast } from '@/hooks/use-toast';
+import { useUser, useFirestore, useMemoFirebase, useCollection } from '@/firebase';
+import { query, collection, where } from 'firebase/firestore';
 import { Loader2, ShoppingBag, MapPin, User, Package, Calendar, ArrowRight } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -14,41 +11,16 @@ import { type Sale } from '@/lib/data';
 import { format } from 'date-fns';
 
 export default function ConsumerDashboard() {
-  const { user, isUserLoading } = useUser();
+  const { user, userData, isUserLoading } = useUser();
   const firestore = useFirestore();
-  const router = useRouter();
-  const { toast } = useToast();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const userDocRef = useMemoFirebase(() => user ? doc(firestore, 'users', user.uid) : null, [user, firestore]);
-  const { data: userData, isLoading: isUserDataLoading } = useDoc(userDocRef);
 
   const purchasesQuery = useMemoFirebase(() => 
     user ? query(collection(firestore, 'sales'), where('buyerId', '==', user.uid)) : null,
-    [user, firestore]
+    [user?.uid, firestore]
   );
   const { data: purchases, isLoading: isPurchasesLoading } = useCollection<Sale>(purchasesQuery);
 
-  useEffect(() => {
-    if (!mounted || isUserLoading || isUserDataLoading) return;
-
-    if (!user) {
-      router.push('/login?redirect=/consumer/dashboard');
-    } else if (userData) {
-      if (userData.role !== 'consumer') {
-        toast({ variant: 'destructive', title: 'Access Denied', description: 'This area is for registered consumers only.' });
-        router.push('/');
-      }
-    } else {
-      router.push('/register?role=consumer');
-    }
-  }, [user, userData, isUserLoading, isUserDataLoading, router, toast, mounted]);
-
-  if (!mounted || isUserLoading || isUserDataLoading) {
+  if (isUserLoading) {
     return (
       <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
         <Loader2 className="h-16 w-16 animate-spin text-primary" />
@@ -56,7 +28,7 @@ export default function ConsumerDashboard() {
     );
   }
 
-  if (!user || userData?.role !== 'consumer') return null;
+  if (!userData) return null;
 
   return (
     <div className="container mx-auto px-4 py-8 md:px-6 md:py-12 animate-in fade-in duration-700">
@@ -88,7 +60,7 @@ export default function ConsumerDashboard() {
               </div>
               <div>
                 <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1">Email</p>
-                <p className="font-bold">{userData.email}</p>
+                <p className="font-bold">{user?.email}</p>
               </div>
               <div>
                 <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1">Language</p>

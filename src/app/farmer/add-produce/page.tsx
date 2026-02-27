@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Loader2, Wheat } from 'lucide-react';
 import {
@@ -26,9 +26,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { useUser, useFirestore, useDoc, useMemoFirebase, addDocumentNonBlocking } from '@/firebase';
-import { doc, collection } from 'firebase/firestore';
-import { Switch } from '@/components/ui/switch';
+import { useUser, useFirestore, addDocumentNonBlocking } from '@/firebase';
+import { collection } from 'firebase/firestore';
 
 const produceSchema = z.object({
   title: z.string().min(3, { message: 'Title must be at least 3 characters.' }),
@@ -48,17 +47,6 @@ export default function AddProducePage() {
   const firestore = useFirestore();
   const router = useRouter();
 
-  const userDocRef = useMemoFirebase(() => user ? doc(firestore, 'users', user.uid) : null, [user, firestore]);
-  const { data: userData, isLoading: isUserDataLoading } = useDoc(userDocRef);
-
-   useEffect(() => {
-    const loading = isUserLoading || isUserDataLoading;
-    if (!loading && (!user || userData?.role !== 'farmer')) {
-      toast({ variant: 'destructive', title: 'Access Denied', description: 'You must be a farmer to access this page.' });
-      router.push('/');
-    }
-  }, [user, userData, isUserLoading, isUserDataLoading, router, toast]);
-
   const form = useForm<z.infer<typeof produceSchema>>({
     resolver: zodResolver(produceSchema),
     defaultValues: {
@@ -73,10 +61,7 @@ export default function AddProducePage() {
   });
   
   async function onSubmit(values: z.infer<typeof produceSchema>) {
-    if (!user) {
-      toast({ variant: 'destructive', title: 'Authentication Error', description: 'You must be logged in.' });
-      return;
-    }
+    if (!user) return;
     setIsLoading(true);
     
     try {
@@ -84,7 +69,7 @@ export default function AddProducePage() {
       const newProduceData = {
         ...values,
         farmerId: user.uid,
-        approved: false, // Listings require admin approval
+        approved: false,
         imageURL: values.imageURL || `https://picsum.photos/seed/${Math.random()}/600/600`
       };
       
@@ -94,7 +79,7 @@ export default function AddProducePage() {
         title: 'Produce Submitted!',
         description: 'Your produce listing has been submitted for approval.',
       });
-      router.push('/farmer/dashboard');
+      router.push('/dashboard/farmer');
     } catch (error: any) {
       toast({
         variant: 'destructive',
@@ -106,16 +91,12 @@ export default function AddProducePage() {
     }
   }
 
-  if (isUserLoading || isUserDataLoading) {
+  if (isUserLoading) {
     return (
       <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
         <Loader2 className="h-16 w-16 animate-spin text-primary" />
       </div>
     );
-  }
-
-  if (userData?.role !== 'farmer') {
-    return null;
   }
 
   return (

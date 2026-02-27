@@ -1,15 +1,11 @@
-
 'use client';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useUser, useDoc, useFirestore, useMemoFirebase, useCollection } from '@/firebase';
+import { useUser, useFirestore, useMemoFirebase, useCollection } from '@/firebase';
 import { Loader2, PlusCircle, CheckCircle, Clock, Beef } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { doc, query, collection, where } from 'firebase/firestore';
-import { useToast } from '@/hooks/use-toast';
+import { query, collection, where } from 'firebase/firestore';
 import { type Produce } from '@/lib/data';
 import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
@@ -70,34 +66,19 @@ function ListingsTable({ items }: { items: Produce[] | null }) {
 export default function FarmerDashboard() {
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
-  const router = useRouter();
-  const { toast } = useToast();
 
-  const userDocRef = useMemoFirebase(() => user ? doc(firestore, 'users', user.uid) : null, [user, firestore]);
-  const { data: userData, isLoading: isUserDataLoading } = useDoc(userDocRef);
-  
-  const farmerProduceQuery = useMemoFirebase(() => user ? query(collection(firestore, 'produce'), where('farmerId', '==', user.uid)) : null, [firestore, user]);
+  const farmerProduceQuery = useMemoFirebase(() => 
+    user ? query(collection(firestore, 'produce'), where('farmerId', '==', user.uid)) : null, 
+    [firestore, user?.uid]
+  );
   const { data: produceListings, isLoading: isLoadingProduce } = useCollection<Produce>(farmerProduceQuery);
 
-
-  useEffect(() => {
-    const loading = isUserLoading || isUserDataLoading;
-    if (!loading && (!user || userData?.role !== 'farmer')) {
-      toast({ variant: 'destructive', title: 'Access Denied', description: 'You must be a farmer to access this page.' });
-      router.push('/');
-    }
-  }, [user, userData, isUserLoading, isUserDataLoading, router, toast]);
-
-  if (isUserLoading || isUserDataLoading) {
+  if (isUserLoading) {
     return (
       <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
         <Loader2 className="h-16 w-16 animate-spin text-primary" />
       </div>
     );
-  }
-
-  if (userData?.role !== 'farmer') {
-    return null;
   }
 
   return (

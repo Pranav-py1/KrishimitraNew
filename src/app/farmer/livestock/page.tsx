@@ -1,9 +1,7 @@
-
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useUser, useFirestore, useDoc, useMemoFirebase, useCollection, addDocumentNonBlocking, setDocumentNonBlocking, deleteDocumentNonBlocking } from '@/firebase';
+import { useState } from 'react';
+import { useUser, useFirestore, useMemoFirebase, useCollection, addDocumentNonBlocking, setDocumentNonBlocking, deleteDocumentNonBlocking } from '@/firebase';
 import { doc, query, collection, where } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Beef, Bird, Plus, Trash2, CheckCircle, Clock } from 'lucide-react';
@@ -21,9 +19,7 @@ import { Badge } from '@/components/ui/badge';
 export default function FarmerLivestockPage() {
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
-  const router = useRouter();
   const { toast } = useToast();
-  const [mounted, setMounted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Form State (Controlled with default empty strings)
@@ -36,25 +32,11 @@ export default function FarmerLivestockPage() {
     imageURL: ''
   });
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const userDocRef = useMemoFirebase(() => user ? doc(firestore, 'users', user.uid) : null, [user, firestore]);
-  const { data: userData, isLoading: isUserDataLoading } = useDoc(userDocRef);
-
   const listingsQuery = useMemoFirebase(() => 
     user ? query(collection(firestore, 'livestockListings'), where('farmerId', '==', user.uid)) : null,
-    [user, firestore]
+    [user?.uid, firestore]
   );
   const { data: listings, isLoading: isLoadingListings } = useCollection<LivestockListing>(listingsQuery);
-
-  useEffect(() => {
-    if (!mounted || isUserLoading || isUserDataLoading) return;
-    if (!user || userData?.role !== 'farmer') {
-      router.push('/');
-    }
-  }, [user, userData, isUserLoading, isUserDataLoading, router, mounted]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -101,7 +83,7 @@ export default function FarmerLivestockPage() {
   const handleMarkAsSold = async (id: string) => {
     try {
       const ref = doc(firestore, 'livestockListings', id);
-      await setDocumentNonBlocking(ref, { status: 'sold' }, { merge: true });
+      setDocumentNonBlocking(ref, { status: 'sold' }, { merge: true });
       toast({ title: 'Status Updated', description: 'Listing marked as sold.' });
     } catch (e) {
       toast({ variant: 'destructive', title: 'Error', description: 'Could not update listing.' });
@@ -111,22 +93,20 @@ export default function FarmerLivestockPage() {
   const handleDelete = async (id: string) => {
     try {
       const ref = doc(firestore, 'livestockListings', id);
-      await deleteDocumentNonBlocking(ref);
+      deleteDocumentNonBlocking(ref);
       toast({ title: 'Listing Deleted', description: 'The listing has been removed.' });
     } catch (e) {
       toast({ variant: 'destructive', title: 'Error', description: 'Could not delete listing.' });
     }
   };
 
-  if (!mounted || isUserLoading || isUserDataLoading) {
+  if (isUserLoading) {
     return (
       <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
         <Loader2 className="h-16 w-16 animate-spin text-primary" />
       </div>
     );
   }
-
-  if (!user || userData?.role !== 'farmer') return null;
 
   return (
     <div className="container mx-auto px-4 py-8 md:px-6 md:py-12 animate-in fade-in duration-700">

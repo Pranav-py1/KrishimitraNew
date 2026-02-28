@@ -1,0 +1,151 @@
+{
+  "entities": {
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user in the KrishiMitra application with detailed profiles for farmers, business owners, and consumers.",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "farmer",
+            "exporter",
+            "supplier",
+            "admin"
+          ]
+        },
+        "registrationTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "village": { "type": "string" },
+            "taluka": { "type": "string" },
+            "district": { "type": "string" },
+            "state": { "type": "string" },
+            "pincode": { "type": "string" },
+            "address": { "type": "string" }
+          }
+        }
+      },
+      "required": [
+        "name",
+        "role"
+      ]
+    },
+    "Consultation": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Consultation",
+      "type": "object",
+      "description": "A booking request from a farmer to an expert.",
+      "properties": {
+        "farmerId": { "type": "string" },
+        "expertId": { "type": "string" },
+        "farmerName": { "type": "string" },
+        "subject": { "type": "string" },
+        "message": { "type": "string" },
+        "preferredDate": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["pending", "approved", "completed", "rejected"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["farmerId", "expertId", "subject", "message", "preferredDate", "status"]
+    },
+    "ExpertArticle": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Expert Article",
+      "type": "object",
+      "description": "Educational content posted by an expert.",
+      "properties": {
+        "expertId": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "content": { "type": "string" },
+        "imageURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["expertId", "title", "category", "content"]
+    },
+    "Machine": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Machine",
+      "type": "object",
+      "description": "Represents a machine available for rent.",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        },
+        "imageURL": {
+          "type": "string"
+        },
+        "retailerId": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "availability": {
+          "type": "boolean"
+        },
+        "approved": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "title",
+        "price",
+        "retailerId",
+        "availability",
+        "approved"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "phone"
+    ]
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/backend/entities/User"
+      },
+      "description": "Stores user profile information."
+    },
+    "/consultations/{id}": {
+      "schema": {
+        "$ref": "#/backend/entities/Consultation"
+      },
+      "description": "Stores consultation requests for experts."
+    },
+    "/expertArticles/{id}": {
+      "schema": {
+        "$ref": "#/backend/entities/ExpertArticle"
+      },
+      "description": "Stores guidance articles posted by experts."
+    },
+    "/machines/{machineId}": {
+      "schema": {
+        "$ref": "#/backend/entities/Machine"
+      },
+      "description": "Stores machines listed for rent."
+    }
+  }
+}

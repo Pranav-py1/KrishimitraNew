@@ -1,0 +1,160 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero-farmer",
+      "description": "A farmer standing in a lush green field at sunrise.",
+      "imageUrl": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1200",
+      "imageHint": "farmer field"
+    },
+    {
+      "id": "pesticide-spray",
+      "description": "Professional crop spraying in progress.",
+      "imageUrl": "https://images.unsplash.com/photo-1592919016381-90ef56bcad67?q=80&w=800",
+      "imageHint": "pesticide spray"
+    },
+    {
+      "id": "pesticide-neem",
+      "description": "Neem-based botanical pesticide application.",
+      "imageUrl": "https://images.unsplash.com/photo-1702623945459-d2ebfec1ca31?q=80&w=800",
+      "imageHint": "neem oil"
+    },
+    {
+      "id": "fertilizer-granular",
+      "description": "High-quality granular fertilizer in hand.",
+      "imageUrl": "https://images.unsplash.com/photo-1628352081506-83c43123ed6d?q=80&w=800",
+      "imageHint": "fertilizer hand"
+    },
+    {
+      "id": "fertilizer-npk",
+      "description": "Water soluble NPK fertilizer bags.",
+      "imageUrl": "https://images.unsplash.com/photo-1719284712101-4bb4a5100d5a?q=80&w=800",
+      "imageHint": "fertilizer npk"
+    },
+    {
+      "id": "seeds-hand",
+      "description": "Farmer holding a variety of agricultural seeds.",
+      "imageUrl": "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?q=80&w=800",
+      "imageHint": "seeds palm"
+    },
+    {
+      "id": "seedlings-green",
+      "description": "Young green seedlings growing in a nursery.",
+      "imageUrl": "https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?q=80&w=800",
+      "imageHint": "seedlings"
+    },
+    {
+      "id": "seed-treatment-lab",
+      "description": "Scientific seed treatment and coating.",
+      "imageUrl": "https://images.unsplash.com/photo-1592327102566-876a7919586e?q=80&w=800",
+      "imageHint": "seed treatment"
+    },
+    {
+      "id": "insecticide-pest",
+      "description": "Targeted insecticide application for crop protection.",
+      "imageUrl": "https://images.unsplash.com/photo-1516283231484-8e41d03123a7?q=80&w=800",
+      "imageHint": "pest control"
+    },
+    {
+      "id": "market-fresh",
+      "description": "Basket of fresh harvest from the local farm.",
+      "imageUrl": "https://images.unsplash.com/photo-1610348725531-843dff563e2c?q=80&w=800",
+      "imageHint": "fresh vegetables"
+    },
+    {
+      "id": "market-hero",
+      "description": "Vibrant local farmers market scene.",
+      "imageUrl": "https://images.unsplash.com/photo-1488459711635-de03ef46d5e7?q=80&w=1200",
+      "imageHint": "farmers market"
+    },
+    {
+      "id": "sugarcane-guide",
+      "description": "Sugarcane plantation in Maharashtra.",
+      "imageUrl": "https://images.unsplash.com/photo-1528183429752-a97d0bf99b5a?q=80&w=1000",
+      "imageHint": "sugarcane"
+    },
+    {
+      "id": "onion-guide",
+      "description": "Freshly harvested red onions.",
+      "imageUrl": "https://images.unsplash.com/photo-1508747703725-71977713d540?q=80&w=1000",
+      "imageHint": "onions"
+    },
+    {
+      "id": "cotton-guide",
+      "description": "Cotton field in bloom.",
+      "imageUrl": "https://images.unsplash.com/photo-1594904351111-a072f80b1a71?q=80&w=1000",
+      "imageHint": "cotton"
+    },
+    {
+      "id": "soybean-guide",
+      "description": "Soybean harvest close-up.",
+      "imageUrl": "https://images.unsplash.com/photo-1592327102566-876a7919586e?q=80&w=1000",
+      "imageHint": "soybean"
+    },
+    {
+      "id": "grapes-guide",
+      "description": "Vineyard with ripe purple grapes.",
+      "imageUrl": "https://images.unsplash.com/photo-1533418264835-9871c7c2dbf0?q=80&w=1000",
+      "imageHint": "grapes"
+    },
+    {
+      "id": "pomegranate-guide",
+      "description": "Red pomegranate fruit on branch.",
+      "imageUrl": "https://images.unsplash.com/photo-1541344999736-83eca872f241?q=80&w=1000",
+      "imageHint": "pomegranate"
+    },
+    {
+      "id": "turmeric-guide",
+      "description": "Turmeric roots and organic powder.",
+      "imageUrl": "https://images.unsplash.com/photo-1615485240384-552e400a9ca1?q=80&w=1000",
+      "imageHint": "turmeric"
+    },
+    {
+      "id": "mango-guide",
+      "description": "Fresh Alphonso mangoes.",
+      "imageUrl": "https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1000",
+      "imageHint": "mango"
+    },
+    {
+      "id": "rice-guide",
+      "description": "Lush green rice paddy fields.",
+      "imageUrl": "https://images.unsplash.com/photo-1536633125620-89330350486c?q=80&w=1000",
+      "imageHint": "rice"
+    },
+    {
+      "id": "wheat-guide",
+      "description": "Golden wheat field ready for harvest.",
+      "imageUrl": "https://images.unsplash.com/photo-1444858291040-58f756a3bbb6?q=80&w=1000",
+      "imageHint": "wheat"
+    },
+    {
+      "id": "banana-guide",
+      "description": "Banana bunch on a tree.",
+      "imageUrl": "https://images.unsplash.com/photo-1528825871115-3581a5387919?q=80&w=1000",
+      "imageHint": "banana"
+    },
+    {
+      "id": "jowar-guide",
+      "description": "Sorghum (Jowar) stalks in field.",
+      "imageUrl": "https://images.unsplash.com/photo-1595124253848-20fa2c1cbbec?q=80&w=1000",
+      "imageHint": "sorghum"
+    },
+    {
+      "id": "bajra-guide",
+      "description": "Pearl Millet (Bajra) crop.",
+      "imageUrl": "https://images.unsplash.com/photo-1624039348835-09990666e113?q=80&w=1000",
+      "imageHint": "millet"
+    },
+    {
+      "id": "gram-guide",
+      "description": "Chickpeas (Gram) growing.",
+      "imageUrl": "https://images.unsplash.com/photo-1515544867661-3044625ec3cb?q=80&w=1000",
+      "imageHint": "chickpeas"
+    },
+    {
+      "id": "exporter-warehouse",
+      "description": "Modern agricultural cold storage.",
+      "imageUrl": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800",
+      "imageHint": "cold storage"
+    }
+  ]
+}

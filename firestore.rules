@@ -1,0 +1,81 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Public Discovery Collections (Allow everyone to browse)
+    match /experts/{id} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /suppliers/{id} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /users/{userId} {
+      allow read: if true;
+      allow write: if isOwner(userId);
+    }
+
+    // Product & Market Catalogs (Publicly viewable)
+    match /machines/{id} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /products/{id} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /produce/{id} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /expertArticles/{id} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /livestockListings/{id} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // Private/Transactional Collections (Require Authentication)
+    match /consultations/{id} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /bookings/{id} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /soilTests/{id} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /sales/{id} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /chatRooms/{roomId} {
+      allow read, write: if isAuthenticated();
+      
+      match /messages/{messageId} {
+        allow read, write: if isAuthenticated();
+      }
+    }
+  }
+}

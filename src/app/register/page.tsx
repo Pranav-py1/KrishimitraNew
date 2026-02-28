@@ -10,11 +10,11 @@ export default function RegisterPage() {
     role: "",
   });
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const res = await fetch("/api/register", {
@@ -32,10 +32,35 @@ export default function RegisterPage() {
       <h1>Register</h1>
 
       <form onSubmit={handleSubmit}>
-        <input name="name" placeholder="Name" onChange={handleChange} /><br /><br />
-        <input name="email" placeholder="Email" onChange={handleChange} /><br /><br />
-        <input name="password" placeholder="Password" type="password" onChange={handleChange} /><br /><br />
-        <input name="role" placeholder="Role" onChange={handleChange} /><br /><br />
+        <input
+          name="name"
+          placeholder="Name"
+          onChange={handleChange}
+        />
+        <br /><br />
+
+        <input
+          name="email"
+          placeholder="Email"
+          onChange={handleChange}
+        />
+        <br /><br />
+
+        <input
+          name="password"
+          type="password"
+          placeholder="Password"
+          onChange={handleChange}
+        />
+        <br /><br />
+
+        <input
+          name="role"
+          placeholder="Role"
+          onChange={handleChange}
+        />
+        <br /><br />
+
         <button type="submit">Register</button>
       </form>
     </div>
